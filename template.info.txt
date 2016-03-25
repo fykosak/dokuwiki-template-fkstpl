@@ -1,0 +1,7 @@
+base     fkstemplate
+author   Student Pilný
+email    fksdb@fykos.cz
+date     2015-03-22
+name     FKS transitional template
+desc     Transitional FKS template
+url      http://fykos.cz
