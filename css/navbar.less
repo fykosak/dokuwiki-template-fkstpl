@@ -1,11 +1,27 @@
 .navbar-default{
-     background-image: linear-gradient(to top,darken(@ini_text_alt,10%),@ini_text_alt);
+    background-image: linear-gradient(to top,darken(@ini_text_alt,10%),@ini_text_alt);
 }
 
 .navbar {
     form.search{
         padding: .5em;
-        
+        .edit{
+            padding: .5em;
+            border-radius: .5em;
+            border: solid 1px @ini_text_alt;
+        }
+        button,.button{
+            &:hover{
+                background-color: lighten(@ini_text_alt,20%);
+            }
+            padding: .5em;
+            background: none;
+            border: solid 1px white;
+            border-radius: 5px;
+            color: white;
+            background-color: @ini_text_alt;
+        }
+
     }
     &> .container-fluid .navbar-brand {
         margin-left: 0!important;
@@ -82,7 +98,6 @@
                 width: 100%;
             }
             width: 100%;
-
         }
     }
 
