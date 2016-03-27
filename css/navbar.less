@@ -43,7 +43,7 @@
             float: none;
             display: inline-block;
         }
-        float: none;
+       
         width: 100%;
         display: flex;
         justify-content: space-around;
@@ -54,7 +54,7 @@
     margin-bottom: 0px; 
 }
 
-@media (max-width: 767px){
+@media (max-width: (@ini_screen_sm - 1)){
 
     .navbar {
         .navbar-header{
@@ -106,7 +106,15 @@
         margin-left: 1em;
     }
 }
-@media (min-width: 768px){
+@media (min-width: @ini_screen_sm ){
+    .navbar-left{
+        width: 80%!important;
+       
+    }
+   .navbar-right{
+        width: 20%!important;
+        
+    }
     .collapsed{
         display: none;
     }

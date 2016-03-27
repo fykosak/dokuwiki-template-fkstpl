@@ -19,15 +19,12 @@ $translateHelper = plugin_load('helper','translate');
 if($translateHelper){
     $defaultLang = get_default_lang();
     $pageLang = $translateHelper->getPageLanguage(null,$defaultLang);
-    if($pageLang == 'en'){
-        $availableLangs = array('cs');
-    }else{
-        $availableLangs = array('en');
-    }
+   
 }else{
-    $availableLangs = array();
+   
     $pageLang = 'cs';
 }
+
 $conf['lang'] = $pageLang;
 
 

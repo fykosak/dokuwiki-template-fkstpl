@@ -37,34 +37,19 @@ function _tpl_userpage($userPage,$title,$link = 0,$wrapper = 0) {
 
 function _fks_topbaruser() {
     global $INFO;
+    global $lang;
 
     $Rdata = array();
-    
-    
-    
-     $Rdata[] = array('id' => '',
-        'ns' => '',
-        'perm' => 8,
-        'type' => 'd',
-        'level' => 1,
-        'open' => 1,
-        'title' => '<span class="glyphicon glyphicon-search"></span>');
-    ob_start();
-    tpl_searchform();
-    $search_form = ob_get_contents();
-    ob_end_clean();
-    
-    $Rdata[] = array('id' => '',
-        'ns' => '',
-        'perm' => 8,
-        'type' => 'f',
-        'level' => 2,
-        'open' => 1,
-        'title' =>$search_form);
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
     $Rdata[] = array('id' => '',
         'ns' => '',
         'perm' => 8,
@@ -78,46 +63,17 @@ function _fks_topbaruser() {
         'type' => 'f',
         'level' => 2,
         'open' => 1,
-        'title' => '<span class="glyphicon glyphicon-user"></span><span>'.$INFO['userinfo']['name'].'</span>');
+        'title' => $lang['loggedinas'].'<br><span class="glyphicon glyphicon-user"></span><span>'.$INFO['userinfo']['name'].'</span>');
 
 
-    $data = array(
-        'view' => 'main',
-        'items' => array(
-            'edit' => tpl_action('edit',1,'li',1,'<span>','</span>'),
-            'revert' => tpl_action('revert',1,'li',1,'<span>','</span>'),
-            'revisions' => tpl_action('revisions',1,'li',1,'<span>','</span>'),
-            'backlink' => tpl_action('backlink',1,'li',1,'<span>','</span>'),
-            'subscribe' => tpl_action('subscribe',1,'li',1,'<span>','</span>'),
-            'top' => tpl_action('top',1,'li',1,'<span>','</span>'),
-            'admin' => tpl_action('admin',1,'li',1,'<span>','</span>'),
-            'profile' => tpl_action('profile',1,'li',1,'<span>','</span>'),
-            'register' => tpl_action('register',1,'li',1,'<span>','</span>'),
-            'login' => tpl_action('login',1,'li',1,'<span>','</span>'),
-            'recent' => tpl_action('recent',1,'li','<span>','</span>'),
-            'media' => tpl_action('media',1,'li','<span>','</span>'),
-            'index' => tpl_action('index',1,'li','<span>','</span>')
-        )
-    );
 
-// the page tools can be amended through a custom plugin hook
-    $evt = new Doku_Event('TEMPLATE_PAGETOOLS_DISPLAY',$data);
 
-    if($evt->advise_before()){
-        foreach ($evt->data['items'] as $k => $html) {
-            $Rdata[] = array('id' => '',
-                'ns' => '',
-                'perm' => 8,
-                'type' => 'f',
-                'level' => 2,
-                'open' => 1,
-                'title' => $html);
-        }
-    }
+    _fks_getUserTools($Rdata);
 
-    $evt->advise_after();
-    unset($data);
-    unset($evt);
+    _fks_getPageTools($Rdata);
+    _fks_getSiteTools($Rdata);
+
+
 
 
 
@@ -133,10 +89,11 @@ function _tpl_mainmenu(helper_plugin_translate $translateHelper,$pageLang) {
     global $conf,$lang;
 
 
-    $data2 = array_merge(tpl_parsemenutext($pageLang),_fks_topbaruser());
-  
-    
-    
+    $data2 = tpl_parsemenutext($pageLang);
+    $data3 = _fks_topbaruser();
+
+
+
 //var_dump($data2);
     global $INFO,$ID;
     $langs = array();
@@ -156,15 +113,17 @@ function _tpl_mainmenu(helper_plugin_translate $translateHelper,$pageLang) {
         }
     }
 
-$lang_select = _fks_langSelect($translateHelper,$alangs,$currentlang);
+    $lang_select = _fks_langSelect($translateHelper,$alangs,$currentlang);
+
+
     echo '
     <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-      <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">';
-   
-    echo '
+    <!-- Brand and toggle get grouped for better mobile display -->';
+
+
+    echo ' <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">    
         <a href="'.wl().'">
             <div class="navbar-brand collapsed">
                 <span >FYKOS.cz</span>
@@ -177,98 +136,18 @@ $lang_select = _fks_langSelect($translateHelper,$alangs,$currentlang);
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+      </div>
+         <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
       ';
 
-
-    echo '</div>
-
- 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">';
-    $inli = false;
-    $inul = false;
+    _fks_getNavbar($data2,'navbar-left');
+    _fks_getNavbar(array_merge($data3,$lang_select),'navbar-right');
     
-    foreach ($data2 as $k => $v) {
-        if($v['level'] == 1){
-
-            if($inul){
-                $inul = false;
-                echo'</ul>';
-            }
-            if($inli){
-                $inli = false;
-                echo'</li>';
-            }
-            /* is next level 2? */
-            if($data2[$k + 1]['level'] == 2){
-                $inli = true;
-                echo'<li class="dropdown">
-          <a href="'.wl(cleanID($v['id'])).'" class="dropdown-toggle" data-toggle="dropdown">'.$v['title'].'<span class="caret"></span></a>';
-            }else{
-
-                if(preg_match('#https?://#',$v['id'])){
-                    echo'<li> <a class="navbar-brand" href="'.htmlspecialchars($v['id']).'">
-                        <span>'.htmlspecialchars($v['title']).' </span>
-                                            </a> </li>';
-                }else{
-                    echo'<li> <a class="navbar-brand" href="'.wl(cleanID($v['id'])).'">
-                        <span>'.$v['title'].' </span>
-                                            </a></li> ';
-                }
-            }
-        }elseif($v['level'] == 2){
-            if(!$inul){
-                $inul = true;
-                echo'<ul class="dropdown-menu" role="menu">';
-            }
-            echo'<li>';
-            if(!empty($v['id'])){
-                if(preg_match('#https?://#',$v['id'])){
-                    echo'<a href="'.$v['id'].'"><span class="menu_'.$v['id'].'">'.$v['title'].'</span></a>';
-                }else{
-
-                    echo'<a href="'.wl(cleanID($v['id'])).'"><span class="menu_'.$v['id'].'">'.$v['title'].'</span></a>';
-                }
-            }else{
-                echo'<span>'.$v['title'].'</span>';
-            }
-            echo'</li>';
-        }
-    }
-    if($inli){
-        $inli = false;
-        echo'</li>';
-    }
-    if($inul){
-        $inul = false;
-        echo'</ul>';
-    }
-
- echo ''.$lang_select.'';
-
-    echo'
-
-</ul>';
-
-
-
-
-
-
-    echo'
-</li>';
-
-
-
-
-
-
-    echo '</ul>
-</div><!--/.navbar-collapse -->';
 
 
 
     echo '
+        </div>
 </div><!--/.container-fluid -->
 </nav>
 <div class = "clearer">
@@ -429,7 +308,7 @@ function _wp_tpl_pageinfo() {
  * @return bool
  */
 
-function tpl_parsemenutext($pageLang="cs") {
+function tpl_parsemenutext($pageLang = "cs") {
     require_once(DOKU_INC.'inc/search.php');
 
     global $conf;
@@ -550,26 +429,236 @@ function return_fce($func,$param = null) {
 }
 
 function _fks_langSelect($translateHelper,$alangs = array(),$currentlang = "") {
-    if (count($alangs)==0) return null;
-    $r = "";
-    $r.= '
-        <li class="dropdown">
-            
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><span class="fa fa-language"></span><span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">';
+    if(count($alangs) == 0) return array();
+    $Rdata = array();
+    $Rdata[] = array('id' => '',
+        'ns' => '',
+        'perm' => 8,
+        'type' => 'f',
+        'level' => 1,
+        'open' => 1,
+        'title' => '<span class="fa fa-language"></span>');
 
     foreach ($alangs as $l) {
         $text = '<span>'.$translateHelper->getLanguageName($l).'</span>';
-
-        $r.='<li '.($l == $currentlang ? 'class = "active"' : '').'>'.$translateHelper->translationLink($l,$text,false).' </li > ';
+        $Rdata[] = array('id' => '',
+            'ns' => '',
+            'perm' => 8,
+            'type' => 'f',
+            'level' => 2,
+            'open' => 1,
+            'title' => '<li '.($l == $currentlang ? 'class = "active"' : '').'>'.$translateHelper->translationLink($l,$text,false).' </li >');
     }
-    
-    $r.= '</ul>';
-    
-    return $r;
+
+
+    return  $Rdata;
 }
-function _fks_getFYKOS($pageLang){
-    
+
+function _fks_getFYKOS($pageLang) {
+
     return 'FYKOS'.(($pageLang == "cs") ? '.cz' : '.org');
-    
+}
+
+function _fks_getUserTools(&$Rdata) {
+    global $lang;
+    $Rdata[] = array('id' => '',
+        'ns' => '',
+        'perm' => 8,
+        'type' => 'f',
+        'level' => 2,
+        'open' => 1,
+        'title' => '<span><span class="glyphicon glyphicon-user"></span>'.$lang['user_tools'].'.<span>');
+
+    $usertools = array(
+        'view' => 'main',
+        'items' => array('admin' => tpl_action('admin',1,'li',1),
+            //   'userpage' => tpl_action('userpage',1,'li',1),
+            'profile' => tpl_action('profile',1,'li',1),
+            'register' => tpl_action('register',1,'li',1),
+            'login' => tpl_action('login',1,'li',1)
+        )
+    );
+
+    $evt = new Doku_Event('TEMPLATE_USERTOOLS_DISPLAY',$usertools);
+
+    if($evt->advise_before()){
+        foreach ($evt->data['items'] as $k => $html) {
+            $Rdata[] = array('id' => '',
+                'ns' => '',
+                'perm' => 8,
+                'type' => 'f',
+                'level' => 2,
+                'open' => 1,
+                'title' => $html);
+        }
+    }
+
+    $evt->advise_after();
+    unset($usertools);
+    unset($evt);
+}
+
+function _fks_getSiteTools(&$Rdata) {
+
+
+    global $lang;
+    $Rdata[] = array('id' => '',
+        'ns' => '',
+        'perm' => 8,
+        'type' => 'f',
+        'level' => 2,
+        'open' => 1,
+        'title' => '<span><span class="glyphicon glyphicon-user"></span>'.$lang['site_tools'].'.<span>');
+
+
+
+    ob_start();
+    tpl_searchform();
+    $search_form = ob_get_contents();
+    ob_end_clean();
+
+    $sitetools = array(
+        'view' => 'main',
+        'items' => array(
+            'recent' => tpl_action('recent',1,'li','<span>','</span>'),
+            'media' => tpl_action('media',1,'li','<span>','</span>'),
+            'index' => tpl_action('index',1,'li','<span>','</span>'),
+            'search' => $search_form
+        )
+    );
+
+    $evt = new Doku_Event('TEMPLATE_USERTOOLS_DISPLAY',$sitetools);
+
+    if($evt->advise_before()){
+        foreach ($evt->data['items'] as $k => $html) {
+            $Rdata[] = array('id' => '',
+                'ns' => '',
+                'perm' => 8,
+                'type' => 'f',
+                'level' => 2,
+                'open' => 1,
+                'title' => $html);
+        }
+    }
+
+    $evt->advise_after();
+    unset($sitetools);
+    unset($evt);
+}
+
+function _fks_getPageTools(&$Rdata) {
+    global $lang;
+    $Rdata[] = array('id' => '',
+        'ns' => '',
+        'perm' => 8,
+        'type' => 'f',
+        'level' => 2,
+        'open' => 1,
+        'title' => '<span><span class="glyphicon glyphicon-user"></span>'.$lang['page_tools'].'.<span>');
+
+
+
+    $pagetools = array(
+        'view' => 'main',
+        'items' => array(
+            'edit' => tpl_action('edit',1,'li',1,'<span>','</span>'),
+            'revert' => tpl_action('revert',1,'li',1,'<span>','</span>'),
+            'revisions' => tpl_action('revisions',1,'li',1,'<span>','</span>'),
+            'backlink' => tpl_action('backlink',1,'li',1,'<span>','</span>'),
+            'subscribe' => tpl_action('subscribe',1,'li',1,'<span>','</span>')
+        )
+    );
+
+
+    $evt = new Doku_Event('TEMPLATE_USERTOOLS_DISPLAY',$pagetools);
+
+    if($evt->advise_before()){
+        foreach ($evt->data['items'] as $k => $html) {
+            $Rdata[] = array('id' => '',
+                'ns' => '',
+                'perm' => 8,
+                'type' => 'f',
+                'level' => 2,
+                'open' => 1,
+                'title' => $html);
+        }
+    }
+
+    $evt->advise_after();
+    unset($pagetools);
+    unset($evt);
+}
+
+function _fks_getnavbar($data,$class = "") {
+   
+    echo ' 
+ 
+      <ul class="nav navbar-nav '.$class.'">';
+    $inli = false;
+    $inul = false;
+
+    foreach ($data as $k => $v) {
+        if($v['level'] == 1){
+
+            if($inul){
+                $inul = false;
+                echo'</ul>';
+            }
+            if($inli){
+                $inli = false;
+                echo'</li>';
+            }
+            /* is next level 2? */
+            if($data[$k + 1]['level'] == 2){
+                $inli = true;
+                echo'<li class="dropdown">
+          <a href="'.wl(cleanID($v['id'])).'" class="dropdown-toggle" data-toggle="dropdown">'.$v['title'].'<span class="caret"></span></a>';
+            }else{
+
+                if(preg_match('#https?://#',$v['id'])){
+                    echo'<li> <a class="navbar-brand" href="'.htmlspecialchars($v['id']).'">
+                        <span>'.htmlspecialchars($v['title']).' </span>
+                                            </a> </li>';
+                }else{
+                    echo'<li> <a class="navbar-brand" href="'.wl(cleanID($v['id'])).'">
+                        <span>'.$v['title'].' </span>
+                                            </a></li> ';
+                }
+            }
+        }elseif($v['level'] == 2){
+            if(!$inul){
+                $inul = true;
+                echo'<ul class="dropdown-menu" role="menu">';
+            }
+            echo'<li>';
+            if(!empty($v['id'])){
+                if(preg_match('#https?://#',$v['id'])){
+                    echo'<a href="'.$v['id'].'"><span class="menu_'.$v['id'].'">'.$v['title'].'</span></a>';
+                }else{
+
+                    echo'<a href="'.wl(cleanID($v['id'])).'"><span class="menu_'.$v['id'].'">'.$v['title'].'</span></a>';
+                }
+            }else{
+                echo'<span>'.$v['title'].'</span>';
+            }
+            echo'</li>';
+        }
+    }
+    if($inli){
+        $inli = false;
+        echo'</li>';
+    }
+    if($inul){
+        $inul = false;
+        echo'</ul>';
+    }
+
+
+
+    echo'
+
+      </ul>
+    </li>
+  </ul>
+';
 }
