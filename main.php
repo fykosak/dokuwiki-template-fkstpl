@@ -30,6 +30,7 @@ if($translateHelper){
 }
 $conf['lang'] = $pageLang;
 
+
 $isAuthWiki = !empty($_SERVER['REMOTE_USER']);
 $isAuthFksweb = isset($_SESSION['id']);
 ?><!DOCTYPE html>
@@ -63,7 +64,7 @@ $isAuthFksweb = isset($_SESSION['id']);
         <?php echo tpl_favicon(array('favicon')) ?>
         <?php tpl_includeFile('meta.html') ?>
 <!--<script src="/lib/tpl/fkstpl/tablesort/jquery.tablesorter.js"></script>-->
-        <script src="/lib/tpl/fkstpl/css/bootstrap-3.3.6/dist/js/bootstrap.min.js"></script>
+        <script src="<?php echo DOKU_TPL; ?>css/bootstrap-3.3.6/dist/js/bootstrap.min.js"></script>
 
     </head>
 
@@ -74,18 +75,22 @@ $isAuthFksweb = isset($_SESSION['id']);
         <div id="dokuwiki__site"><div id="dokuwiki__top" class="site <?php echo tpl_classes(); ?>">
                 <div id="page" >            
 
-                    <div id="top" >
-                        <div id="home">
-                            <a class="active" title="<?php echo tpl_getLang('fykos') ?>" href="<?php echo DOKU_BASE; ?>">FYKOS</a>
-                        </div>
+                    <div class="topbar" >
+                        <a class="active" title="<?php echo tpl_getLang('fykos').(($pageLang == "cz") ? '.cz' : '.org') ?>" href="<?php echo wl(); ?>">
+                            <div class="home">
+                                 <span><?php echo _fks_getFYKOS($pageLang);?></span>
+                                
+                                <img class="svg" src="<?php echo DOKU_TPL; ?>images/fykos-logo.svg" alt="logo FYKOS.cz"/>
+                            </div>
+                        </a>
                         <div class="top-image" <?php rnd_background() ?>>
-                            
+
                         </div>
                     </div>
-                       
-                    <?php _tpl_mainmenu(); ?>
-                    
-                    
+
+                    <?php
+                    _tpl_mainmenu($translateHelper,$pageLang);
+                    ?>
 
 
                     <!-- ********** CONTENT ********** -->

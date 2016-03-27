@@ -1,0 +1,78 @@
+.topbar{
+    &>*{
+        height: 100%;
+    }
+    .home{
+        &:hover{
+            span{
+                color: @ini_text_alt;
+
+            }
+            svg{
+                stroke:@ini_text_alt;
+
+            }
+            background-color: white;
+            background-image: none;
+            
+        }
+        &>*{
+            display: inline-block;
+            transition-duration: 200ms;
+        }
+        span{
+            color: white;
+
+            font-size: 30px; 
+
+
+        }
+        svg{
+            stroke:white;
+            height: 56px;
+            margin-top: -20px;
+            margin-bottom: -20px;
+            fill:none;
+
+            stroke-width:300;
+        }
+   
+        
+        background-color: @ini_text_alt;
+        background-image: linear-gradient(to top,@ini_text_alt,lighten(@ini_text_alt,30%));
+
+        border-width:  1px 0 0 1px  ;
+        border-color: @ini_text_alt;
+        border-style: solid;
+
+        display: flex;
+        justify-content: space-around;
+        height: 100%;
+        align-items: center;
+
+        border-top-left-radius: 30px;
+        width: 50%;
+        float: left;
+        padding: 1em;
+
+    }
+    div.top-image{
+        border-width:  1px  1px 0  0 ;
+        border-color: @ini_text_alt;
+        border-style: solid;
+        background-size: cover;
+        background-position-y:50%;
+        border-top-right-radius: 30px;
+        width: 50%;
+        float:right;
+    }
+    padding-top: 2em;
+    height: 110px;
+}
+
+@media (max-width: 767px){
+    .topbar{
+        display: none;
+    }
+}
+

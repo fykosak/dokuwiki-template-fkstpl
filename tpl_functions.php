@@ -39,13 +39,47 @@ function _fks_topbaruser() {
     global $INFO;
 
     $Rdata = array();
+    
+    
+    
+     $Rdata[] = array('id' => '',
+        'ns' => '',
+        'perm' => 8,
+        'type' => 'd',
+        'level' => 1,
+        'open' => 1,
+        'title' => '<span class="glyphicon glyphicon-search"></span>');
+    ob_start();
+    tpl_searchform();
+    $search_form = ob_get_contents();
+    ob_end_clean();
+    
+    $Rdata[] = array('id' => '',
+        'ns' => '',
+        'perm' => 8,
+        'type' => 'f',
+        'level' => 2,
+        'open' => 1,
+        'title' =>$search_form);
+    
+    
+    
+    
     $Rdata[] = array('id' => '',
         'ns' => '',
         'perm' => 8,
         'type' => 'd',
         'level' => 1,
         'open' => 1,
-        'title' => $INFO['userinfo']['name']);
+        'title' => '<span class="glyphicon glyphicon-cog"></span>');
+    $Rdata[] = array('id' => '',
+        'ns' => '',
+        'perm' => 8,
+        'type' => 'f',
+        'level' => 2,
+        'open' => 1,
+        'title' => '<span class="glyphicon glyphicon-user"></span><span>'.$INFO['userinfo']['name'].'</span>');
+
 
     $data = array(
         'view' => 'main',
@@ -66,7 +100,7 @@ function _fks_topbaruser() {
         )
     );
 
-    // the page tools can be amended through a custom plugin hook
+// the page tools can be amended through a custom plugin hook
     $evt = new Doku_Event('TEMPLATE_PAGETOOLS_DISPLAY',$data);
 
     if($evt->advise_before()){
@@ -95,34 +129,65 @@ function _fks_topbaruser() {
  * koniec mišoveho šialenstva!!!
  */
 
-function _tpl_mainmenu() {
-    global $conf;
-   
+function _tpl_mainmenu(helper_plugin_translate $translateHelper,$pageLang) {
+    global $conf,$lang;
 
-    $data2 = array_merge(tpl_parsemenutext(),_fks_topbaruser());
-    //var_dump($data2);
 
+    $data2 = array_merge(tpl_parsemenutext($pageLang),_fks_topbaruser());
+  
+    
+    
+//var_dump($data2);
+    global $INFO,$ID;
+    $langs = array();
+    if($INFO['exists']){
+        if($translateHelper->isTranslatable()){
+            $orig = $translateHelper->getOriginal();
+            $origlang = $translateHelper->getPageLanguage($orig);
+            $langs = array_values($translateHelper->getTranslations($orig));
+            $currentlang = $translateHelper->getPageLanguage($ID);
+
+            if(count($langs) > 0 && !in_array($origlang,$langs)){
+                array_unshift($langs,$origlang);
+            }
+            $alangs = $langs;
+
+            unset($langs[array_search($currentlang,$langs)]);
+        }
+    }
+
+$lang_select = _fks_langSelect($translateHelper,$alangs,$currentlang);
     echo '
     <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
       <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-    <a href="'.wl().'"><div class="navbar-brand collapsed"><span >FYKOS.cz</span><img class="svg" src="'.DOKU_TPL.'images/fykos-logo.svg" alt="logo FYKOS.cz"/></div></a>
+    <div class="navbar-header">';
+   
+    echo '
+        <a href="'.wl().'">
+            <div class="navbar-brand collapsed">
+                <span >FYKOS.cz</span>
+                <img class="svg" src="'.DOKU_TPL.'images/fykos-logo.svg" alt="logo FYKOS.cz"/>
+            </div>
+        </a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
         <span class="sr-only"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-    
-    </div>
+      ';
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
+
+    echo '</div>
+
+ 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">';
     $inli = false;
     $inul = false;
+    
     foreach ($data2 as $k => $v) {
         if($v['level'] == 1){
 
@@ -134,8 +199,8 @@ function _tpl_mainmenu() {
                 $inli = false;
                 echo'</li>';
             }
-            /* is next file ?? */
-            if($data2[$k + 1]['type'] == 'f'){
+            /* is next level 2? */
+            if($data2[$k + 1]['level'] == 2){
                 $inli = true;
                 echo'<li class="dropdown">
           <a href="'.wl(cleanID($v['id'])).'" class="dropdown-toggle" data-toggle="dropdown">'.$v['title'].'<span class="caret"></span></a>';
@@ -147,7 +212,7 @@ function _tpl_mainmenu() {
                                             </a> </li>';
                 }else{
                     echo'<li> <a class="navbar-brand" href="'.wl(cleanID($v['id'])).'">
-                        <span>'.htmlspecialchars($v['title']).' </span>
+                        <span>'.$v['title'].' </span>
                                             </a></li> ';
                 }
             }
@@ -178,12 +243,36 @@ function _tpl_mainmenu() {
         $inul = false;
         echo'</ul>';
     }
+
+ echo ''.$lang_select.'';
+
+    echo'
+
+</ul>';
+
+
+
+
+
+
+    echo'
+</li>';
+
+
+
+
+
+
     echo '</ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
- </nav>
- <div class="clearer">
-            </div>';
+</div><!--/.navbar-collapse -->';
+
+
+
+    echo '
+</div><!--/.container-fluid -->
+</nav>
+<div class = "clearer">
+</div>';
 }
 
 /* Index item formatter
@@ -201,7 +290,7 @@ function _wp_tpl_list_index($item) {
             $ret .= html_wikilink($item['id'].':',$item['title']);
         }
     }elseif($item['type'] == 'abs'){
-        $ret .= '<a href="'.$item['id'].'">'.$item['title'].'</a>';
+        $ret .= '<a href = "'.$item['id'].'">'.$item['title'].'</a>';
     }else{
         $ret .= html_wikilink(':'.$item['id'],$item['title']);
     }
@@ -249,7 +338,7 @@ function _wp_tpl_parsemenufile(&$data,$filename,$start) {
                         $title = $id;
                     }
                 }else{
-                    // continue;
+// continue;
                 }
             }
             if(!$title){
@@ -297,15 +386,15 @@ function _wp_tpl_pageinfo() {
 
     global $ID;
 
-    // return if we are not allowed to view the page
+// return if we are not allowed to view the page
     if(!auth_quickaclcheck($ID)){
         return;
     }
 
-    // prepare date
+// prepare date
     $date = dformat($INFO['lastmod']);
 
-    // echo it
+// echo it
     if($INFO['exists']){
         echo $lang['lastmod'];
         echo ': ';
@@ -340,7 +429,7 @@ function _wp_tpl_pageinfo() {
  * @return bool
  */
 
-function tpl_parsemenutext() {
+function tpl_parsemenutext($pageLang="cs") {
     require_once(DOKU_INC.'inc/search.php');
 
     global $conf;
@@ -373,22 +462,22 @@ function tpl_parsemenutext() {
     $data = array();
     $ff = TRUE;
 
-    //if ($conf['tpl'][$tpl]['usemenufile']) {
+//if ($conf['tpl'][$tpl]['usemenufile']) {
 
-    $menufilename = 'system/menu_cs';
+    $menufilename = 'system/menu_'.$pageLang;
 
     $filepath = wikiFN($menufilename);
     if(!file_exists($filepath)){
         $ff = FALSE;
     }else{
-        //var_dump(p_get_instructions(io_readFile($filename)));
+//var_dump(p_get_instructions(io_readFile($filename)));
 
         _wp_tpl_parsemenufile($data,$menufilename,$start);
     }
-    // }
-    // if (!$conf['tpl'][$tpl]['usemenufile'] or ( $conf['tpl'][$tpl]['usemenufile'] and ! $ff)) {
-    //     search($data, $conf['datadir'], 'search_universal', $opts);
-    //  }
+// }
+// if (!$conf['tpl'][$tpl]['usemenufile'] or ( $conf['tpl'][$tpl]['usemenufile'] and ! $ff)) {
+//     search($data, $conf['datadir'], 'search_universal', $opts);
+//  }
     $i = 0;
     $cleanindexlist = array();
     if($conf['tpl'][$tpl]['cleanindexlist']){
@@ -458,4 +547,29 @@ function return_fce($func,$param = null) {
     $f = ob_get_contents();
     ob_end_clean();
     return $f;
+}
+
+function _fks_langSelect($translateHelper,$alangs = array(),$currentlang = "") {
+    if (count($alangs)==0) return null;
+    $r = "";
+    $r.= '
+        <li class="dropdown">
+            
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><span class="fa fa-language"></span><span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">';
+
+    foreach ($alangs as $l) {
+        $text = '<span>'.$translateHelper->getLanguageName($l).'</span>';
+
+        $r.='<li '.($l == $currentlang ? 'class = "active"' : '').'>'.$translateHelper->translationLink($l,$text,false).' </li > ';
+    }
+    
+    $r.= '</ul>';
+    
+    return $r;
+}
+function _fks_getFYKOS($pageLang){
+    
+    return 'FYKOS'.(($pageLang == "cs") ? '.cz' : '.org');
+    
 }
