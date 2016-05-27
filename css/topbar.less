@@ -57,17 +57,30 @@
 
     }
     div.top-image{
+        animation-duration: 30s;
+        background-image:url(images/17.jpg);
+       // animation-name: topbar;
+        animation-timing-function: ease;
+        transform: translateZ(0);
+        animation-iteration-count: infinite;
         border-width:  1px  1px 0  0 ;
         border-color: @ini_text_alt;
         border-style: solid;
         background-size: cover;
-        background-position-y:50%;
+        background-position: center 50%;
         border-top-right-radius: 30px;
         width: 50%;
         float:right;
     }
     padding-top: 2em;
     height: 110px;
+}
+@keyframes topbar{
+    0%{background-image:url(images/17.jpg);}
+    25%{background-image:url(images/18.jpg);}
+    50%{background-image:url(images/20.jpg);}
+    75%{background-image:url(images/20.jpg);}
+    100%{background-image:url(images/17.jpg);}
 }
 
 @media (max-width: (@ini_screen_sm - 1)){

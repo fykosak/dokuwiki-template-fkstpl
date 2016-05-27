@@ -19,4 +19,7 @@ $lang['languageTitle'] 	 = 'English version';
 $lang['register'] 	 = 'Registrace';
 $lang['submit'] 	 = 'Upload řešení';
 
+
+$lang['nologin']  = "Nepřihlášen";
+
 //Setup VIM: ex: et ts=2 :

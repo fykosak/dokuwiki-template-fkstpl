@@ -8,6 +8,11 @@ img.svg{
     display: none;
 }
 
+button, html input[type="button"], input[type="reset"], input[type="submit"] {
+    color:white;
+    .btn;
+    .btn-primary;
+}
 
 
 
@@ -96,30 +101,23 @@ blockquote{
 }
 
 
-#page {   
-
-
+#page {  
+    @media (max-width: 1049px){    
+        width:100%;    
+    }
+    @media (min-width: 1050px){   
+        max-width: 90em;
+        width:75%;    
+    }
     border-radius: 30px;
     margin:0px;
     margin-left:auto;
     margin-right:auto;
     padding:0px;
-
     box-shadow: 0px 40px 40px #ccc;
-    //background:url('images/top-2.png') top center no-repeat;
 }
 
-@media (max-width: 1049px){
-    #page {
-        width:100%;
-    }
-}
-@media (min-width: 1050px){
-    #page {
-        max-width: 90em;
-        width:75%;
-    }
-}
+
 
 #bottom {
     clear:both;
@@ -134,13 +132,7 @@ blockquote{
 }
 
 
-
-
-
-
-
-
-#content {
+.content {
     text-align:justify;
     margin:0px;
     padding:5px;
@@ -148,19 +140,19 @@ blockquote{
     padding-left:1.5em;
     padding-right:1.5em;
 }
-#content select {
+.content select {
     color:#1175da;
     border:1px solid #d0d8dc;
     background:#f5f5f5;
 }
-#content ul li {
+.content ul li {
 
     list-style-image:url('images/blue.gif');
 }
-#content ul li ul{
+.content ul li ul{
     margin-bottom:0;
 }
-#content #serie_select {
+.content #serie_select {
     float:right;
     margin: 55px 0px 15px 15px;
     padding: 0px .5em;
@@ -173,109 +165,67 @@ blockquote{
     -moz-box-shadow: 0 0 2px 2px rgba(208,216,220,.7);
     box-shadow: 0 0 2px 2px rgba(208,216,220,.7);
 }
-#content #serie_select h3, #content #serie_select ul {
+.content #serie_select h3, .content #serie_select ul {
     margin: .5em 0;
 }
-#content #serie_select select:focus, #content #serie_select select:hover {
+.content #serie_select select:focus, .content #serie_select select:hover {
     background:white;
 }
-#content #serie_select .imagebutton {
+.content #serie_select .imagebutton {
     vertical-align: bottom;
 }
-#content dt {
+.content dt {
     margin-top : 5px;
 }
-/*#content*/ #sous dt {
+/*.content*/ #sous dt {
     margin-top: 1.5em;
     margin-bottom: .5em;
     font-size: 1.1em;
 }
 
-#content img.icon {
+.content img.icon {
     padding:0px;
     margin-bottom:-2px;
     border:0px;
 }
 
-#content div a img { /* Tohle je pekna prasecina */
+.content div a img { /* Tohle je pekna prasecina */
     padding:2px;
     // border:1px solid #d0d8dc;
 } /* SRY ale toto pod dokuwiki ne!!!!! -- Mišo */ 
-#content div a:hover img {
+.content div a:hover img {
     // background:#d0d8dc;
 }
-#content hr {
+.content hr {
     padding-bottom: 1em;
     border:none;
     border-top:1px solid #d0d8dc;
 }
-#content em.mark {
+.content em.mark {
     font-weight:bold;
     font-style:normal;
     text-decoration:underline;
 }
-#content p.chyba {
+.content p.chyba {
     color : Red;
 }
 
-#content ul li.actual {
+.content ul li.actual {
     list-style-image: url('../pic/orange.gif');
 }
 
-/************ zadania ******************/
 
-#content #deadline {
-    font-style: italic;
-}
-#content #zadani h2 .points {
-    margin-left: 2em;
-}
-#content #zadani ol, #content #zadani ul {
-    padding-left:25px;
-}
-#content #zadani ol li {
-    list-style-type:lower-alpha;
-}
-#content #zadani ul li {
-    list-style-image : none;
-    list-style-type : disc;
-}
-#content #zadani ol ol li {
-    list-style-type: disc;
-}
-#content #zadani .equation {
-    text-align:center;
-}
-#content #zadani li .equation {
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-#content #zadani table {
-    margin: 0px auto 0px auto;
-    border-collapse : collapse;
-}
-#content #zadani li table {
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-#content #zadani table td, #content #zadani table th {
-    border : 1px solid Black;
-    padding:0px;
-    padding-left: .2em;
-    padding-right: .2em;
-}
-
-#content form {
+.content form {
     margin:0px;
     padding:0px;
 }
-#content form .formular {
+.content form .formular {
     padding:0px;
     border:1px solid #d0d8dc;
     background:white;
     padding-bottom:20px;
 }
-#content form .formular h2 {
+.content form .formular h2 {
     margin:0px;
     padding:2px;
     padding-left:8px;
@@ -286,20 +236,20 @@ blockquote{
     background:url('images/top-gradient.png') 0px -40px repeat-x white;
     margin-bottom: 20px;
 }
-#content form .formular>div, #content form #hide>div {
+.content form .formular>div, .content form #hide>div {
     margin-left:10px;
     margin-top:10px;
 }
-#content #forum form .formular #hide {
+.content #forum form .formular #hide {
     padding:0;
     margin:0;
 }
-#content .fm-submit {
+.content .fm-submit {
     margin-top:-1px !important;
     margin-right:5px;
     float:right;
 }
-#content .fm-submit input, #content .fm-submit a {
+.content .fm-submit input, .content .fm-submit a {
     color:#1175da;
     font-size:small;
     font-variant:small-caps;
@@ -312,83 +262,83 @@ blockquote{
     background:#f5f5f5;
     cursor: hand;
 }
-#content .formular input.text, #content .formular textarea,  #content .formular select {
+.content .formular input.text, .content .formular textarea,  .content .formular select {
     font-family:Helvetica CE, Arial CE, Arial, Helvetica, sans-serif;
     margin: 0 10px 0 0;
     padding:2px;
     border:1px solid #d0d8dc;
     background:#f5f5f5;
 }
-#content .formular .text.long {
+.content .formular .text.long {
     width: 35em;
 }
-#content .formular div input.text:last-child, #content .formular div textarea:last-child,  #content .formular div select:last-child {
+.content .formular div input.text:last-child, .content .formular div textarea:last-child,  .content .formular div select:last-child {
     margin-right: 0px;
 }
-#content .formular input.text:hover, #content .formular textarea:hover, #content .formular select:hover,
-#content .formular input.text:focus, #content .formular textarea:focus, #content .formular select:focus {
+.content .formular input.text:hover, .content .formular textarea:hover, .content .formular select:hover,
+.content .formular input.text:focus, .content .formular textarea:focus, .content .formular select:focus {
     background:white;
 }
-#content .fm-submit input:hover, #content .fm-submit input:focus {
+.content .fm-submit input:hover, .content .fm-submit input:focus {
     background:white;
 }
-#content .formular input.checkbox{
+.content .formular input.checkbox{
     border:1px solid #d0d8dc;
     background:#f5f5f5;
 }
-#content .formular fieldset {
+.content .formular fieldset {
     margin-top:10px;
     padding-top:0px;
     padding-bottom:10px;
     border:1px solid #d0d8dc;
 }
-#content .formular legend {
+.content .formular legend {
     font-weight : bold;
 }
 
-#content .formular table {
+.content .formular table {
     margin-top: -10px;
 }
-#content .formular th, #content .formular td {
+.content .formular th, .content .formular td {
     padding-top: 10px;
 }
-#content .formular th {
+.content .formular th {
     padding-left: 10px;
 }
 
-#content form table {
+.content form table {
     margin: 0;
     width: 100%;
 }
-#content form table th {
+.content form table th {
     font-weight: normal;
 }
-#content form table tr.required label {
+.content form table tr.required label {
     font-weight: bold;
 }
-#content form table td,
-#content form table th {
+.content form table td,
+.content form table th {
     border: none;
 }
-#content form table input.text, #content form table input.password {
+.content form table input.text, .content form table input.password {
     width: 300px;
 }
 
-#content #forum #forum-form .formular h2 {
+.content #forum #forum-form .formular h2 {
     cursor : hand;
 }
-#content #forum ul {
+.content #forum ul {
     padding:0px;
     padding-left:3px;
     margin:0px;
     list-style:none;
     background:url('images/dot.png') 7px 0px repeat-y;
 }
-#content #forum>ul {
+.content #forum>ul {
     padding-left:0px;
     background: none;
 }
-#content #forum li {
+.content #forum li {
     margin:0px;
     margin-top:-1px; /* This is important */
     padding:0px;
@@ -397,25 +347,25 @@ blockquote{
     list-style:none;
     background:url('images/cross.png') 0px 35px no-repeat;
 }
-#content #forum li.prispevek_posledni {
+.content #forum li.prispevek_posledni {
     background:url('images/end.png') 0px 0px no-repeat;
 }
-#content #forum>ul>li {
+.content #forum>ul>li {
     background:none;
     padding-left:0px;
 }
 
 
-#content #forum li div {
+.content #forum li div {
     margin:0px;
     padding:0px;
 }
-#content #forum li div dl {
+.content #forum li div dl {
     margin:0px;
     padding:0px;
     background:url('images/top-gradient.png') 0px -40px repeat-x white;
 }
-#content #forum li div dl dt {
+.content #forum li div dl dt {
     margin:0px;
     padding:2px;
     /*font-size:medium;
@@ -424,7 +374,7 @@ blockquote{
     font-variant:small-caps;
     border:1px solid #d0d8dc;
 }
-#content #forum li div dl dt span.orgIcon {
+.content #forum li div dl dt span.orgIcon {
     display:block;
     float:left;
     margin:0px;
@@ -434,18 +384,18 @@ blockquote{
     padding-right:5px;
     overflow:hidden;
 }
-#content #forum li div dl dt span.orgIcon img {
+.content #forum li div dl dt span.orgIcon img {
     height:23px;
     _height:28px;
 }
-#content #forum li div dl dd {
+.content #forum li div dl dd {
     margin:0px;
     padding:8px;
     border:1px solid #d0d8dc;
     border-top:0px;
     background:#f5f5f5;
 }
-#content #forum li div dl dd span.opener{
+.content #forum li div dl dd span.opener{
     position: absolute;
     left:-1px;
     bottom: -8px;
@@ -453,21 +403,21 @@ blockquote{
     height:15px;
     display:none;
 }
-#content #forum li div dl dd.opened span.opener{
+.content #forum li div dl dd.opened span.opener{
     display:block;
     background: transparent url('images/opened.png') no-repeat;
 }
-#content #forum li div dl dd.closed span.opener{
+.content #forum li div dl dd.closed span.opener{
     display:block;
     background: transparent url('images/closed.png') no-repeat;
 }
-#content #forum li div.actual dl dt{
+.content #forum li div.actual dl dt{
     background: transparent url('images/bullet-actual.png') no-repeat right;
 }
-#content #forum li div.online dl dt{
+.content #forum li div.online dl dt{
     background: transparent url('images/bullet-online.png') no-repeat right;
 }
-#content #forum li div dl dd.reagovat {
+.content #forum li div dl dd.reagovat {
     float:right;
     margin:0px;
     margin-top:0px;
@@ -476,7 +426,7 @@ blockquote{
     border:0px;
     background:transparent;
 }
-#content #forum li div dl dd.reagovat a {
+.content #forum li div dl dd.reagovat a {
     float:right;
     margin:0px;
     margin-left:5px;
@@ -488,23 +438,23 @@ blockquote{
     border-top:0px solid #d0d8dc;
     background:#f5f5f5;
 }
-#content #forum li div dl dd.reagovat a:hover {
+.content #forum li div dl dd.reagovat a:hover {
     background:white;
 }
-#content #forum li div dl dt.org {
+.content #forum li div dl dt.org {
     color:orange;
 }
-#content #forum img {
+.content #forum img {
     margin:0px;
     margin-bottom:-5px;
 }
-#content #forum #predchozi_diskuze {
+.content #forum #predchozi_diskuze {
     margin-top:50px;
     margin-left:20px;
     color:gray;
     font-size:medium;
 }
-#content #forum #predchozi_diskuze img {
+.content #forum #predchozi_diskuze img {
     margin:0px;
     margin-bottom:-3px;
     padding:0px;
@@ -512,160 +462,46 @@ blockquote{
     border:0px;
 }
 
-#content #archiv div {
+.content #archiv div {
     float : left;
     width:175px;
 }
 
-#content #poradi div {
+.content #poradi div {
     float : left;
     width:230px;
 }
 
 
-#content #vysledkovka table {
-    border-collapse : collapse;
-    margin: 0px auto 0px auto;
-    border : 0px none Black;
-}
-#content #vysledkovka table td{
-    padding-left:5px;
-    padding-right:5px;
-    border : 0px none Black;
-}
-#content #vysledkovka table thead th {
-    padding-left:5px;
-    padding-right:5px;
-    border : 0px none Black;
-    text-align : center;
-    font-style : normal;
-    font-weight:bold;
-    font-variant:small-caps;
-    /*background:url('images/top-gradient.png') 0px -70px repeat-x white;*/
-}
-#content #vysledkovka table tr.student_pilny td {
-    font-style: italic;
-    /*background:url('images/top-gradient.png') 0px -85px repeat-x white;*/
-}
-#content #vysledkovka col.poradi {
-    text-align : right;
-    width : 70px;
-}
-#content #vysledkovka col.jmeno {
-    width : 170px;
-}
-#content #vysledkovka col.skola{
-    width : 210px;
-}
-#content #vysledkovka col.body{
-    text-align : right;
-    width : 10px;
-}
-#content #vysledkovka col.puntik {
-    width : 10px;
-    text-align : center;
-}
-#content #vysledkovka col.procenta{
-    font-style : italic;
-    text-align : right;
-    width : 30px;
-}
-#content #vysledkovka col.celkem {
-    font-weight:bold;
-    text-align : right;
-    width : 30px;
-}
 
-#content p.result-links a {
+.content p.result-links a {
     display:block;
 }
 
-#content #news dl {
-    margin-bottom: 4em;
-    margin-top:-20px;
-    padding-top:0px;
-}
-#content #news dl dt {
-    margin-top:25px;
-    display:block;
-    border:1px solid #d0d8dc;
-    background:#f5f5f5;
-    font-weight : normal;
-}
-#content #news dl dt div {
-    padding:4px;
-}
-#content #news dl dt div.datum {
-    padding: 0px;
-    font-size : smaller;
-}
-#content #news dl dt span.author {
-    font-style : italic;
-    padding-left : 2em;
-    float : right;
-    color : Black;
-}
-#content #news dl dt a {
-    display : block;
-}
-#content #news dl dt a div {
-    font-variant : normal;
-    color : Black;
-}
-#content #news dl dt a:hover {
-    background:white;
-}
-#content #news dl dt.actual div.datum {
-    background: transparent url('images/bullet-actual.png') no-repeat 90px -1px;
-}
-#content #news dl dd {
-    float:right;
-    margin:0px;
-    margin-top:0px;
-    margin-right:5px;
-    padding:0px;
-    border:0px;
-    background:transparent;
-}
-#content #news dl dd a {
-    float:right;
-    margin:0px;
-    margin-left:5px;
-    padding:1px;
-    padding-left:2px;
-    padding-right:2px;
-    display:block;
-    border:1px solid #d0d8dc;
-    border-top:0px solid #d0d8dc;
-    background:#f5f5f5;
-}
-#content #news dl dd a:hover {
-    background:white;
-}
 
-#content #home-poll {
+.content #home-poll {
     float: right;
     padding: 0 0 0 1em;
     width: 27%;
 }
 
-#content #organi dt {
+.content #organi dt {
     background:#efefef;
 }
 
-#content #organi dt.hover {
+.content #organi dt.hover {
     background: #8CBBE1;
 }
 
-#content #organi dt .alias {
+.content #organi dt .alias {
     font-weight : normal;
 }
 
-#content #organi a.orgIcon img {
+.content #organi a.orgIcon img {
     height: 60px;
     margin-top:0px;
 }
-#content div.orgIconFloat {
+.content div.orgIconFloat {
     position : absolute;
     z-index:20;
     padding : 0px;
@@ -675,39 +511,13 @@ blockquote{
     display : none;
     height:120px;
 }
-#content div.orgIconFloat img {
+.content div.orgIconFloat img {
     display:block;
     padding : 0px;
     margin : 0px;
     border: 0px none;
 }
 
-#photoGallery div.photoContainer {
-    margin: 6px;
-    padding: 0px;
-    border:1px solid #d0d8dc;
-    float: left;
-}
-
-#photoGallery div.photoContainer a {
-    display: block;
-    margin:2px;
-    _margin:0px;
-    padding:0px;
-    width: 220px;
-    height: 200px;
-    text-align: center;
-    overflow:hidden;
-}
-
-#photoGallery div.photoContainer a img {
-    padding:0px;
-    border: 1px none #d0d8dc;
-}
-
-#photoGallery div.photoContainer a:hover {
-    background:#d0d8dc;
-}
 
 #bottomPanel {
     clear: both;
@@ -755,12 +565,12 @@ address a, #login a {
 }
 
 
-#content .under-box {
+.content .under-box {
     *margin-top:-1px;
     margin-right:5px;
     float:right;
 }
-#content .under-box a {
+.content .under-box a {
     margin: 0px 0px 0px 5px;
     padding: 0px 8px 0px;
     border:1px solid #d0d8dc;
@@ -814,14 +624,6 @@ address a, #login a {
     overflow-y: scroll;
 }
 
-#form-serie-problems .problemsContainer>fieldset:nth-child(2) {background-color: #eef1ff;}
-#form-serie-problems .problemsContainer>fieldset:nth-child(3) {background-color: #d9e0ff;}
-#form-serie-problems .problemsContainer>fieldset:nth-child(4) {background-color: #eef1ff;}
-#form-serie-problems .problemsContainer>fieldset:nth-child(5) {background-color: #d9e0ff;}
-#form-serie-problems .problemsContainer>fieldset:nth-child(6) {background-color: #eef1ff;}
-#form-serie-problems .problemsContainer>fieldset:nth-child(7) {background-color: #fee;}
-#form-serie-problems .problemsContainer>fieldset:nth-child(8) {background-color: #eee;}
-#form-serie-problems .problemsContainer>fieldset:nth-child(9) {background-color: #fbfbe5;}
 
 #admin {
 
@@ -854,10 +656,10 @@ address a, #login a {
 
 
 /* These classes are deprecated, use visual, not status class. */
-#content .nabojTable .state-pending {font-style: italic;}
-#content .nabojTable .state-spare {font-style: italic;}
+.content .nabojTable .state-pending {font-style: italic;}
+.content .nabojTable .state-spare {font-style: italic;}
 /* This is appropriate class. */
-#content .nabojTable .highlighted {font-style: italic;}
+.content .nabojTable .highlighted {font-style: italic;}
 
 
 /* seznam týmu v adinistraci */
@@ -879,7 +681,7 @@ hr{
 li{
     margin-left:2em;
 }
-#content ul,#content ol{
+.content ul,.content ol{
     li ul,li ol{
         margin-bottom:0;
     }
@@ -958,148 +760,7 @@ fieldset{
     line-height: 1.5em;
 
 }
-.dokuwiki {
-    table.diff{
-        th {
-            a {
-                font-weight: bold;
-            }
-            span.user {
-                font-size: .9em;
-            }
-            span.sum {
-                font-size: .9em;
-                font-weight: bold;
-            }
-            border-bottom: 1px solid @ini_border;
-            font-size: 110%;
-            font-weight: normal;
-        }   
-        .diff-lineheader {
-            width: .7em;
-            text-align: right;
-        }
 
-
-        th.minor {
-            color: #999;
-        }
-    }
-    table.diff_sidebyside th {
-        width: 50%;
-    }
-
-
-
-
-    table.diff td.diff-blockheader {
-        font-weight: bold;
-    }
-    table.diff .diff-addedline {
-        background-color: #cfc;
-        color: inherit;
-    }
-    table.diff .diff-deletedline {
-        background-color: #fdd;
-        color: inherit;
-    }
-    td.diff-context {
-        background-color: #eee;
-        color: inherit;
-    }
-    table.diff td.diff-addedline strong,
-    table.diff td.diff-deletedline strong {
-        color: #f00;
-        background-color: inherit;
-        font-weight: bold;
-    }
-
-    /* diff options */
-    .diffoptions form {
-        float: left;
-    }
-    .diffoptions p {
-        float: right;
-    }
-
-    /* diff nav */
-
-    table.diff_sidebyside td.diffnav {
-        padding-bottom: .7em;
-    }
-    .diffnav a {
-        display: inline-block;
-        vertical-align: middle;
-    }
-    .diffnav a span {
-        display: none;
-    }
-
-    .diffnav a:hover,
-        .diffnav a:active,
-        .diffnav a:focus {
-        background-color: @ini_background_alt;
-        text-decoration: none;
-    }
-
-    .diffnav a:before {
-        display: inline-block;
-        line-height: 1;
-        padding: .2em .4em;
-        border: 1px solid @ini_border;
-        border-radius: 2px;
-        color: @ini_text;
-    }
-
-    .diffnav a.diffprevrev:before {
-        content: '\25C0'; /* left triangle */
-    }
-    .diffnav a.diffnextrev:before,
-        .diffnav a.difflastrev:before {
-        content: '\25B6'; /* right triangle */
-    }
-    .diffnav a.diffbothprevrev:before {
-        content: '\25C0\25C0';
-    }
-    .diffnav a.diffbothnextrev:before {
-        content: '\25B6\25B6';
-    }
-
-    .diffnav select {
-        width: 60%;
-        min-width: 9em;
-        height: 1.5em; /* height is necessary for longer options in Webkit */
-    }
-
-    .diffnav select option[selected] {
-        font-weight: bold;
-    }
-}
-[dir=rtl] .dokuwiki table.diff .diff-lineheader {
-    text-align: left;
-}
-
-
-
-
-/**
-* This file provides styles for the diff view, which shows you
-* differences between two versions of a page (?do=diff).
-*/
-
-.dokuwiki table.diff {
-    width: 100%;
-    border-width: 0;
-}
-.dokuwiki table.diff th,
-.dokuwiki table.diff td {
-    vertical-align: top;
-    padding: 0;
-    border-width: 0;
-    /* no style.ini colours because deleted and added lines have a fixed background colour */
-    background-color: #fff;
-    color: #333;
-}
 
 button.fast_link {
     margin-bottom: 1em;
@@ -1135,4 +796,49 @@ li{
         margin:.5em
     }
 
+
 }
+
+
+
+.dokuwiki_footbar {
+    h1{
+        color:@ini_text_alt;
+        text-align: center;
+        margin:0;
+    }
+    &>div{
+        &>p{
+
+            img{
+                width: 100%;
+                padding: 1em;
+
+            }
+            strong{
+                color:@ini_text_alt;
+            }
+            transition-duration:  300ms;
+
+            width: 250px;
+            font-size: small;
+
+            text-align: center;
+            float:right;
+            padding: 1em;
+        }
+
+        display: flex;
+        flex-wrap: wrap;
+        justify-content:space-around;
+
+
+    }
+    background-color: lighten(@ini_text_alt,50%);
+    padding: 1em;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius:30px;
+
+}
+
+

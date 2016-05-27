@@ -36,36 +36,34 @@ var _ga = {e: ['seznam.cz:q', 'seznam.cz:w', 'atlas.centrum.cz:q', 'searchatlas.
 
 /* Custom code */
 jQuery(function () {
-    jQuery('#dokuwiki-control-toggle').click(function () {
-        jQuery('#dokuwiki-control').toggle();
+    var $ = jQuery;
+    $('#dokuwiki-control-toggle').click(function () {
+        $('#dokuwiki-control').toggle();
     });
 
-    jQuery('nav .level1 > .li a').click(function (event) {
+    $('nav .level1 > .li a').click(function (event) {
 
-        var $ul = jQuery(this).parents('.li').next('ul');
+        var $ul = $(this).parents('.li').next('ul');
 
         if ($ul.length > 0) {
-            console.log($ul.length);
             event.preventDefault();
             $ul.slideToggle();
         }
 
     });
-});
 
 
-jQuery(function () {
-    jQuery(document).ready(function () {
+    $(document).ready(function () {
         //jQuery("#content table").tablesorter();
-        jQuery('img.svg').each(function () {
-            var $img = jQuery(this);
+        $('img.svg').each(function () {
+            var $img = $(this);
             var imgID = $img.attr('id');
             var imgClass = $img.attr('class');
             var imgURL = $img.attr('src');
 
-            jQuery.get(imgURL, function (data) {
+            $.get(imgURL, function (data) {
                 // Get the SVG tag, ignore the rest
-                var $svg = jQuery(data).find('svg');
+                var $svg = $(data).find('svg');
 
                 // Add replaced image's ID to the new SVG
                 if (typeof imgID !== 'undefined') {
@@ -90,6 +88,7 @@ jQuery(function () {
             }, 'xml');
 
         });
+      
     });
 });
 
