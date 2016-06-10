@@ -5,7 +5,7 @@
 }
 
 img.svg{
-    display: none;
+    // display: none;
 }
 
 button, html input[type="button"], input[type="reset"], input[type="submit"] {
@@ -16,13 +16,7 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
 
 
 
-button.lang-select{
-    background-color: transparent;
-    border: 1px solid;
-    padding: 5px;
-    border-radius: 5px;
-    border: solid 1px @ini_text_alt;
-}
+
 body {
     width:100%;
     margin:0px;
@@ -30,27 +24,23 @@ body {
     font-size: 14px;
     line-height: 1.5;
     font-family:Helvetica CE, Arial CE, Arial, Helvetica, sans-serif !important;
-    //font-size:smaller !important;
-    background: #ffffff /*url('images/top-gradient.png') repeat-x*/;
-    //background-image: linear-gradient(to top, #fff,#eee);
-    box-shadow: inset 0px 100px 100px #ddd;
+
+    background: #ffffff ;
+
     color: #000000;
 }
 
 a {
     color:@ini_text_alt ;
     text-decoration:none !important;
-    font-variant:small-caps !important;
-    //font-size:small;
+    font-variant:small-caps ;
 }
 a:hover {
     color:darken(@ini_text_alt,20%) ;
     text-decoration:none !important;
 }
 h1,h2,h3,h4,h5 {
-
-    font-variant:small-caps !important;
-
+    font-variant:small-caps ;
 }
 
 dt {
@@ -101,21 +91,7 @@ blockquote{
 }
 
 
-#page {  
-    @media (max-width: 1049px){    
-        width:100%;    
-    }
-    @media (min-width: 1050px){   
-        max-width: 90em;
-        width:75%;    
-    }
-    border-radius: 30px;
-    margin:0px;
-    margin-left:auto;
-    margin-right:auto;
-    padding:0px;
-    box-shadow: 0px 40px 40px #ccc;
-}
+
 
 
 
@@ -560,9 +536,7 @@ address {
 address a, #login a {
     font-size:x-small;
 }
-#login {
-    text-align:center;
-}
+
 
 
 .content .under-box {
@@ -578,81 +552,8 @@ address a, #login a {
 }
 
 
-#edit_authors table.chb-grid {
-    margin: 0;
-}
-#edit_authors input[type=checkbox] {
-    margin: 0;
-}
-#edit_authors table.chb-grid th {
-    height: 12em;
-    vertical-align: bottom
-}
-#edit_authors table.chb-grid th>span {
-    overflow: visible;
-    white-space: nowrap;
-    display: block;
-    width: 1.2em;
-    -webkit-transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-}
-
-#form-serie-problems h2 {
-    margin-bottom: 0px !important;
-}
-#form-serie-problems .formular {
-    padding-bottom: 0px !important;
-}
-#form-serie-problems h3 {
-    margin-top: 2px;
-    margin-bottom: 5px;
-    font-size: 1.2em !important;
-}
-#form-serie-problems fieldset {
-    position: relative;
-}
-#form-serie-problems .ignoreMe {
-    position: absolute;
-    top: 0px;
-    left: 6em;
-}
-#form-serie-problems .problemsContainer {
-    margin: 0px !important;
-    height: 700px;
-    overflow-y: scroll;
-}
 
 
-#admin {
-
-}
-#admin li {
-    display: block;
-    width: 150px;
-    height: 100px;
-    margin: 0;
-    padding: 0;
-    border:1px solid #d0d8dc;
-    float: left;
-    list-style: none;
-    background-color:#f5f5f5;
-    background-position: 5% 50%;
-    background-repeat: no-repeat;
-}
-#admin li a {
-    display: block;
-    width: 95px;
-    height: 70px;
-    margin: 0;
-    padding: 30px 10px 0px 45px;
-    font-size: 1.3em;
-    text-align: center;
-}
-#admin li:hover {
-    background-color:#ffffff;
-}
 
 
 /* These classes are deprecated, use visual, not status class. */
@@ -694,7 +595,8 @@ p{
 }
 
 .secedit{
-    float:right;
+    text-align: end;
+    //  float:right;
 
     input.button{
         border-radius: 5px;
@@ -838,6 +740,43 @@ li{
     padding: 1em;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius:30px;
+
+}
+
+.page{
+    aside.sidebar{
+
+        width:20%;
+    }
+    div.content{
+        width: 55%;
+    }
+    div.toc{
+        div#dw__toc{
+            width: 100%;
+            &.fixed{
+
+                height: 100%;
+                overflow-y: scroll;
+            }}
+
+        width: 20%;
+    }
+    footer{
+        width: 100%;
+    }
+    &>*{
+        padding: .5em;
+    }
+    width:100%;    
+
+    padding: 1em 2em ;
+    margin-left:auto;
+    margin-right:auto;
+
+    display: flex;
+    justify-content:center;
+    flex-wrap:wrap;
 
 }
 
