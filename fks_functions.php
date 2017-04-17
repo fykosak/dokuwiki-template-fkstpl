@@ -4,7 +4,7 @@ class fksTemplate {
     private static $jumbotronData = [
         'start' => [
             [
-                'headline' => 'Týmové sútaže',
+                'headline' => 'Týmové soutěže',
                 'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam rutrum porta tellus. Aenean et
                         dolor sed elit rutrum finibus eu a tellus. Etiam ac leo sit amet justo rhoncus sodales sed id
                         diam.',
@@ -13,7 +13,7 @@ class fksTemplate {
                 'inner-container-background-id' => 1,
             ],
             [
-                'headline' => 'Nový kamaráti',
+                'headline' => 'Noví kamarádi',
                 'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam rutrum porta tellus. Aenean et
                         dolor sed elit rutrum finibus eu a tellus. Etiam ac leo sit amet justo rhoncus sodales sed id
                         diam.',
@@ -22,7 +22,7 @@ class fksTemplate {
                 'inner-container-background-id' => 2,
             ],
             [
-                'headline' => 'Nezabudnuteľné sústredká',
+                'headline' => 'Nezapomenutelná soustředění',
                 'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam rutrum porta tellus. Aenean et
                         dolor sed elit rutrum finibus eu a tellus. Etiam ac leo sit amet justo rhoncus sodales sed id
                         diam.',
@@ -31,7 +31,7 @@ class fksTemplate {
                 'inner-container-background-id' => 3,
             ],
             [
-                'headline' => 'Veda zábavným spôsobom',
+                'headline' => 'Věda zábavným způsobem',
                 'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam rutrum porta tellus. Aenean et
                         dolor sed elit rutrum finibus eu a tellus. Etiam ac leo sit amet justo rhoncus sodales sed id
                         diam.',
@@ -40,7 +40,7 @@ class fksTemplate {
                 'inner-container-background-id' => 4,
             ],
             [
-                'headline' => 'Zážitky na ktoré sa nezbúda',
+                'headline' => 'Zážitky, na které se nezapomíná',
                 'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam rutrum porta tellus. Aenean et
                         dolor sed elit rutrum finibus eu a tellus. Etiam ac leo sit amet justo rhoncus sodales sed id
                         diam.',
@@ -49,7 +49,7 @@ class fksTemplate {
                 'inner-container-background-id' => 5,
             ],
             [
-                'headline' => 'Exkurzie na vedecké pracoviská',
+                'headline' => 'Exkurze na vědecká pracoviště',
                 'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam rutrum porta tellus. Aenean et
                         dolor sed elit rutrum finibus eu a tellus. Etiam ac leo sit amet justo rhoncus sodales sed id
                         diam.',
@@ -60,7 +60,7 @@ class fksTemplate {
         ],
         'akce:start' => [
             [
-                'headline' => 'Týmové sútaže',
+                'headline' => 'Týmové soutěže',
                 'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam rutrum porta tellus. Aenean et
                         dolor sed elit rutrum finibus eu a tellus. Etiam ac leo sit amet justo rhoncus sodales sed id
                         diam.',
