@@ -1,15 +1,8 @@
 <?php
-/**
- * DokuWiki FKS template (based on layout by Jan Prachař <honzik@fykos.cz>)
- *
- * @author   Lukáš Timko <lukast@fykos.cz>
- * @author   Michal Koutný <michal@fykos.cz>
- * @author   Michal Červeňák <miso@fykos.cz>
- *
- */
-if (!defined('DOKU_INC')) die(); /* must be run from within DokuWiki */
+
 require_once(dirname(__FILE__) . '/tpl_functions.php'); /* include hook for template functions */
-global $conf, $ACT;
+require_once(dirname(__FILE__) . '/fks_functions.php'); /* include hook for template functions */
+global $conf, $ACT, $lang, $ID;
 ?><!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xml:lang="<?php echo $conf['lang']; ?>"
@@ -35,7 +28,7 @@ global $conf, $ACT;
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <?php echo tpl_favicon(array('favicon')) ?>
 
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
             integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
             crossorigin="anonymous"></script>
 
@@ -43,46 +36,59 @@ global $conf, $ACT;
 
 <body data-act="<?php echo $ACT; ?>">
 <div id="dokuwiki__top" class="site <?php echo tpl_classes(); ?>">
-    <div class="container-fluid hidden-xs hidden-sm header-image jumbotron" data-background="<?php echo rand(0, 6); ?>">
-        <!--  <div class="col-lg-4">FYKOS</div>-->
-        <div class="row nav-container">
-            <?php
-            (new BootstrapNavBar())->mainMenu();
-            ?>
-        </div>
-    </div>
+
+    <?php fksTemplate::printHeader($conf['lang'], $ID); ?>
 
     <div class="container">
         <div class="row">
-            <aside class="sidebar col-lg-3 col-md-3 col-sm-12 col-xs-12 container-fluid">
+            <div id="accordion" class="hidden-lg-up col-md-12 col-sm-12" role="tablist" aria-multiselectable="true">
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingOne">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
+                           aria-controls="collapseOne">
+                            <span class="fa fa-caret-square-o-down"></span>
+                        </a>
+                    </div>
+
+                    <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="card-block">
+                            <?php
+                            tpl_include_page('sidebar_' . $conf['lang'], 1, 1);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <aside class="sidebar col-lg-3 hidden-md-down container-fluid">
                 <?php
-                global $ACT;
-                if ($ACT == 'show') {
-                    tpl_include_page('sidebar', 1, 1);
-                }
+                tpl_include_page('sidebar_' . $conf['lang'], 1, 1);
                 ?>
             </aside>
 
             <main id="dokuwiki__content"
-                  class="content dokuwiki__content container-fluid col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                  class="content dokuwiki__content container-fluid col-lg-9 col-md-12 col-sm-12 col-xs-12">
                 <?php
                 tpl_flush();
                 html_msgarea();
-                tpl_breadcrumbs('/');
+                // tpl_breadcrumbs('/');
+                tpl_youarehere('/');
                 tpl_content(false);
                 tpl_flush();
                 ?>
             </main>
-
+            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
 
             <footer class="dokuwiki_footbar col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <?php tpl_include_page('footbar', 1, 1); ?>
+                <?php tpl_include_page('footbar_' . $conf['lang'], 1, 1); ?>
                 <div class="clearer"></div>
             </footer>
         </div>
 
 
     </div>
+    <hr/>
     <address class="container">
         &copy;FYKOS &ndash; <a href="mailto:<?php echo tpl_getConf('email_webmaster') ?>"
                                title="Kontaktní email"><?php echo tpl_getConf('email_webmaster') ?></a>
