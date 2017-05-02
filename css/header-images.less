@@ -1,0 +1,56 @@
+.header-image {
+  height: 25em;
+  background-size: cover;
+  background-position: 50% 50%;
+  .jumbotron-inner-container {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    color: white;
+  }
+  .jumbotron-inner-container {
+    &[data-background="1"] {
+      background-color: fade(#1175da, 70%);
+    }
+    &[data-background="2"] {
+      background-color: fade(#da1175, 70%);
+    }
+    &[data-background="3"] {
+      background-color: fade(#75da11, 70%);
+    }
+    &[data-background="4"] {
+      background-color: fade(#11da75, 70%);
+    }
+    &[data-background="5"] {
+      background-color: fade(#da7511, 70%);
+    }
+    &[data-background="6"] {
+      background-color: fade(#7511da, 70%);
+    }
+  }
+  &[data-background="1"] {
+    background-image: url(images/bg_start/04.jpg);
+  }
+  &[data-background="2"] {
+    background-image: url(images/bg_start/18a.jpg);
+  }
+  &[data-background="3"] {
+    background-image: url(images/bg_start/47.jpg);
+  }
+  &[data-background="4"] {
+    background-position: 50% 0;
+    background-image: url(images/bg_start/55.jpg);
+  }
+  &[data-background="5"] {
+    background-image: url(images/bg_start/58.jpg);
+  }
+  &[data-background="6"] {
+    background-image: url(images/bg_start/68.jpg);
+  }
+  &[data-background="fof"] {
+    background-color: #7511da;
+  }
+  &[data-background="akce"] {
+    background-color: #11da75;
+  }
+
+}

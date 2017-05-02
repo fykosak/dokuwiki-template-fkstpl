@@ -31,13 +31,13 @@ global $conf, $ACT, $lang, $ID;
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
             integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
             crossorigin="anonymous"></script>
-
 </head>
 
 <body data-act="<?php echo $ACT; ?>">
-<div id="dokuwiki__top" class="site <?php echo tpl_classes(); ?>">
+<div id="dokuwiki__top" class="site <?php echo tpl_classes(); ?>" data-namespace="<?php echo getNS($ID); ?>">
 
     <?php fksTemplate::printHeader($conf['lang'], $ID); ?>
+    <?php $sidebarContent = tpl_include_page(getNS($ID) . ':sidebar_' . $conf['lang'], 0, 0) ?: bootstrapToc(); ?>
 
     <div class="container">
         <div class="row">
@@ -53,27 +53,29 @@ global $conf, $ACT, $lang, $ID;
                     <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
                         <div class="card-block">
                             <?php
-                            tpl_include_page('sidebar_' . $conf['lang'], 1, 1);
+                            echo $sidebarContent
                             ?>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-            <aside class="sidebar col-lg-3 hidden-md-down container-fluid">
-                <?php
-                tpl_include_page('sidebar_' . $conf['lang'], 1, 1);
+            <?php global $ACT;
+            if ($ACT == 'show') {
                 ?>
-            </aside>
-
+                <aside class="sidebar col-lg-3 hidden-md-down container-fluid">
+                    <?php
+                    echo $sidebarContent;
+                    ?>
+                </aside>
+                <?php
+            } ?>
             <main id="dokuwiki__content"
-                  class="content dokuwiki__content container-fluid col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                  class="content dokuwiki__content container-fluid <?php echo ($ACT == 'show') ? 'col-lg-9' : 'col-lg-12'; ?> col-md-12 col-sm-12 col-xs-12"
+                  data-spy="scroll"
+            >
                 <?php
                 tpl_flush();
                 html_msgarea();
-                // tpl_breadcrumbs('/');
-                tpl_youarehere('/');
                 tpl_content(false);
                 tpl_flush();
                 ?>
@@ -85,8 +87,6 @@ global $conf, $ACT, $lang, $ID;
                 <div class="clearer"></div>
             </footer>
         </div>
-
-
     </div>
     <hr/>
     <address class="container">

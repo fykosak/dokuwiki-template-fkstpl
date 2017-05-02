@@ -1,5 +1,4 @@
 nav .tools a, nav .lang a {
-
   .dropdown-item;
 }
 
@@ -10,6 +9,7 @@ nav .tools a, nav .lang a {
 
 .fykos {
   font-family: Propaganda, sans-serif !important;
+  text-decoration: none !important;
 }
 
 a:hover {
@@ -18,10 +18,6 @@ a:hover {
 
 .navbar-brand img {
   margin: -15px -5px;
-}
-
-.bg-light-fykos {
-  background-color: lighten(#1175da, 0);
 }
 
 .jumbotron {
@@ -34,61 +30,6 @@ a:hover {
 
 .navbar .navbar-toggler-icon {
   background-image: url("data:image/svg+xml;charset=utf8,<svg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'><path stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/></svg>");
-}
-
-.header-image {
-
-  height: 25em;
-  background-size: cover;
-  background-position: 50% 50%;
-  .jumbotron-inner-container {
-    margin-top: 3rem;
-    padding: 1.5rem;
-    color: white;
-  }
-  .jumbotron-inner-container {
-    &[data-background="1"] {
-      background-color: fade(#1175da, 70%);
-    }
-    &[data-background="2"] {
-      background-color: fade(#da1175, 70%);
-    }
-    &[data-background="3"] {
-      background-color: fade(#75da11, 70%);
-    }
-    &[data-background="4"] {
-      background-color: fade(#11da75, 70%);
-    }
-    &[data-background="5"] {
-      background-color: fade(#da7511, 70%);
-    }
-    &[data-background="6"] {
-      background-color: fade(#7511da, 70%);
-    }
-  }
-  &[data-background="1"] {
-    background-image: url(images/bg_start/04.jpg);
-  }
-  &[data-background="2"] {
-    background-image: url(images/bg_start/18a.jpg);
-  }
-  &[data-background="3"] {
-    background-image: url(images/bg_start/47.jpg);
-  }
-  &[data-background="4"] {
-    background-position: 50% 0;
-    background-image: url(images/bg_start/55.jpg);
-  }
-  &[data-background="5"] {
-    background-image: url(images/bg_start/58.jpg);
-  }
-  &[data-background="6"] {
-    background-image: url(images/bg_start/68.jpg);
-  }
-  &[data-background="fof"] {
-    background-color: #7511da;
-  }
-
 }
 
 footer {
@@ -111,19 +52,12 @@ footer {
   float: right !important;
 }
 
-// colorize headline
-main {
-  .h1, h1, .h2, h2, .h3, h3, .h4, h4, .h5, h5, .h6, h6 {
-    color: @ini_text_alt !important;
-  }
-}
-
 // space after icons
 .fa {
   margin-right: .25em;
 }
 
-aside , #accordion{
+aside, #accordion {
   ul {
     .flex-column;
     .nav;
@@ -133,6 +67,20 @@ aside , #accordion{
         .nav-link;
       }
     }
-
   }
+}
+
+.breadcrumb {
+  .bchead {
+    display: none;
+  }
+  & > * {
+    margin: 0 .25rem;
+  }
+}
+
+.org .org-image {
+  height: 15rem;
+  background-size: cover;
+  background-position-y: 50%;
 }

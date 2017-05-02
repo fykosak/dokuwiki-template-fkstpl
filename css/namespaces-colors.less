@@ -1,0 +1,57 @@
+.namespace-color(@color) when (iscolor(@color)) {
+  .card-header {
+    background-color: @color;
+  }
+  .card {
+    border-color: @color;
+  }
+  .navbar-inverse {
+    background-color: @color;
+  }
+  .progress-bar {
+    background-color: @color;
+  }
+  .navbar.bg-light a {
+    color: @color;
+  }
+  .page-header {
+    svg {
+      stroke: @color;
+    }
+    .fykos {
+      color: @color;
+    }
+    &:hover {
+      svg {
+        stroke: darken(@color, 20%);;
+      }
+      .fykos {
+        color: darken(@color, 20%);;
+      }
+    }
+  }
+}
+
+.namespace-color(#1175da);
+
+#dokuwiki__top[data-namespace="akce:soustredeni"] {
+  .namespace-color(#75da11);
+}
+#dokuwiki__top[data-namespace="sex"] {
+  .namespace-color(#da1175);
+}
+
+
+#dokuwiki__top[data-namespace="akce:dsef"],#dokuwiki__top[data-namespace="akce:tsaf"] {
+  .namespace-color(#11da76);
+}
+
+#dokuwiki__top[data-namespace="akce:fyziklani"] {
+  .namespace-color(#7611da);
+}
+
+#dokuwiki__top[data-namespace="akce"] {
+  .namespace-color(#da7611);
+}
+
+
