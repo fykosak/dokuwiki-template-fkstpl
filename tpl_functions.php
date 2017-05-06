@@ -17,7 +17,7 @@ class BootstrapNavBar {
         $this->className = $className;
     }
 
-    public function addTools($class) {
+    public function addTools($class = '') {
 
         global $INFO;
         global $lang;
@@ -71,9 +71,11 @@ class BootstrapNavBar {
         $this->html .= '</nav>';
     }
 
+
     public function render() {
         $this->mainMenu();
         echo $this->html;
+
     }
 
     private function parseMenuFile($filename) {
@@ -131,7 +133,7 @@ class BootstrapNavBar {
         ];
     }
 
-    public function addLangSelect($class) {
+    public function addLangSelect($class = '') {
         global $conf;
         $data = [];
         if (count($conf['available_lang']) == 0) return [];
@@ -144,7 +146,7 @@ class BootstrapNavBar {
             'title' => '<span class="fa fa-language"></span>'
         ];
 
-        foreach ($conf['available_lang'] as $l) {
+        foreach ($conf['available_lang'] as $currentLang) {
 
             $data[] = [
                 'id' => '',
@@ -152,7 +154,11 @@ class BootstrapNavBar {
                 'type' => 'f',
                 'level' => 2,
                 'open' => 1,
-                'title' => '<div class = "lang ' . ($l['code'] == $conf['lang'] ? 'active' : '') . '">' . $l['text'] . ' </div>'
+                'title' => '<a 
+                href="' . $currentLang['content']['url'] . '" 
+                class="dropdown-item ' . $currentLang['content']['class'] . ' ' . ($currentLang['code'] == $conf['lang'] ? 'active' : '') . '"
+                ' . $currentLang['content']['more'] . '
+                >' . $currentLang['content']['text'] . ' </a> '
             ];
         }
         $this->data[] = [
@@ -171,7 +177,7 @@ class BootstrapNavBar {
             'type' => 'f',
             'level' => 2,
             'open' => 1,
-            'title' => '<div class="dropdown-header"><span class="glyphicon glyphicon-user"></span>' . $lang['user_tools'] . '.</div>'
+            'title' => ' <div class="dropdown-header" ><span class="glyphicon glyphicon-user" ></span> ' . $lang['user_tools'] . ' .</div> '
         ];
 
         $userTools = [
@@ -211,7 +217,7 @@ class BootstrapNavBar {
             'type' => 'f',
             'level' => 2,
             'open' => 1,
-            'title' => '<div class="dropdown-header"><span class="glyphicon glyphicon-user"></span>' . $lang['site_tools'] . '.</div>'
+            'title' => ' <div class="dropdown-header" ><span class="glyphicon glyphicon-user" ></span> ' . $lang['site_tools'] . ' .</div > '
         ];
 
         ob_start();
@@ -255,7 +261,7 @@ class BootstrapNavBar {
             'type' => 'f',
             'level' => 2,
             'open' => 1,
-            'title' => '<div class="dropdown-header"><span class="fa fa-user-o"></span>' . $lang['page_tools'] . '</div>'
+            'title' => ' <div class="dropdown-header" ><span class="fa fa-user-o" ></span > ' . $lang['page_tools'] . ' </div > '
         ];
         $pageTools = [
             'view' => 'main',
@@ -289,9 +295,9 @@ class BootstrapNavBar {
         $inLI = false;
         $inUL = false;
 
-        $this->html .= '<ul class="nav navbar-nav ' . $class . '">';
+        $this->html .= ' <ul class="nav navbar-nav ' . $class . '" > ';
         foreach ($data as $k => $v) {
-            $icon = $v['icon'] ? ('<span class="' . $v['icon'] . '"></span>') : '';
+            $icon = $v['icon'] ? (' <span class="' . $v['icon'] . '" ></span > ') : '';
             $link = preg_match('#https?://#', $v['id']) ? htmlspecialchars($v['id']) : wl(cleanID($v['id']));
             $title = $icon . $v['title'];
             if ($v['level'] == 1) {

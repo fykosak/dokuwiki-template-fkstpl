@@ -166,8 +166,9 @@ class fksTemplate {
     private static function getFullNav() {
         $fullMenu = new BootstrapNavBar('full');
         $fullMenu->setClassName('col-xs-12 col-md-12 col-sm-12 navbar-inverse  bg-light-fykos');
-        $fullMenu->addMenuText('menu-primary', 'justify-content-start');
-        $fullMenu->addMenuText('menu-second', 'justify-content-start');
+        $fullMenu->addMenuText('menu-primary');
+        $fullMenu->addMenuText('menu-second-left');
+        $fullMenu->addMenuText('menu-second-right');
         $fullMenu->addTools('justify-content-end');
         $fullMenu->addLangSelect('justify-content-end');
         return $fullMenu;
@@ -176,16 +177,17 @@ class fksTemplate {
     private static function getPrimaryNav() {
         $primaryMenu = new BootstrapNavBar('primary');
         $primaryMenu->setClassName('navbar  bg-light');
-        $primaryMenu->addMenuText('menu-primary', 'justify-content-start');
-        $primaryMenu->addTools('justify-content-end');
-        $primaryMenu->addLangSelect('justify-content-end');
+        $primaryMenu->addMenuText('menu-primary', 'mr-auto');
+        $primaryMenu->addTools();
+        $primaryMenu->addLangSelect();
         return $primaryMenu;
     }
 
     private static function getSecondaryNav() {
         $secondMenu = new BootstrapNavBar('secondary');
         $secondMenu->setClassName('navbar-inverse bg-light-fykos container');
-        $secondMenu->addMenuText('menu-second');
+        $secondMenu->addMenuText('menu-second-left', 'mr-auto');
+        $secondMenu->addMenuText('menu-second-right');
         return $secondMenu;
     }
 

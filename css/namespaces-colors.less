@@ -11,7 +11,7 @@
   .progress-bar {
     background-color: @color;
   }
-  .navbar.bg-light a {
+  .navbar.bg-light a:not(.active) {
     color: @color;
   }
   .page-header {
@@ -37,12 +37,12 @@
 #dokuwiki__top[data-namespace="akce:soustredeni"] {
   .namespace-color(#75da11);
 }
+
 #dokuwiki__top[data-namespace="sex"] {
   .namespace-color(#da1175);
 }
 
-
-#dokuwiki__top[data-namespace="akce:dsef"],#dokuwiki__top[data-namespace="akce:tsaf"] {
+#dokuwiki__top[data-namespace="akce:dsef"], #dokuwiki__top[data-namespace="akce:tsaf"] {
   .namespace-color(#11da76);
 }
 
