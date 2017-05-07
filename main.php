@@ -1,7 +1,7 @@
 <?php
 
 require_once(dirname(__FILE__) . '/tpl_functions.php'); /* include hook for template functions */
-require_once(dirname(__FILE__) . '/fks_functions.php'); /* include hook for template functions */
+
 global $conf, $ACT, $lang, $ID;
 ?><!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -41,7 +41,7 @@ global $conf, $ACT, $lang, $ID;
 
     <div class="container">
         <div class="row">
-            <div id="accordion" class="hidden-lg-up col-md-12 col-sm-12" role="tablist" aria-multiselectable="true">
+            <!-- <div id="accordion" class="hidden-lg-up col-md-12 col-sm-12" role="tablist" aria-multiselectable="true">
                 <div class="card">
                     <div class="card-header" role="tab" id="headingOne">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
@@ -53,14 +53,14 @@ global $conf, $ACT, $lang, $ID;
                     <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
                         <div class="card-block">
                             <?php
-                            echo $sidebarContent
-                            ?>
+            //echo $sidebarContent
+            ?>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <?php global $ACT;
-            if ($ACT == 'show') {
+            if ($ACT == 'show' && $sidebarContent) {
                 ?>
                 <aside class="sidebar col-lg-3 hidden-md-down container-fluid">
                     <?php
@@ -70,7 +70,7 @@ global $conf, $ACT, $lang, $ID;
                 <?php
             } ?>
             <main id="dokuwiki__content"
-                  class="content dokuwiki__content container-fluid <?php echo ($ACT == 'show') ? 'col-lg-9' : 'col-lg-12'; ?> col-md-12 col-sm-12 col-xs-12"
+                  class="content dokuwiki__content container-fluid <?php echo ($ACT == 'show' && $sidebarContent) ? 'col-lg-9' : 'col-lg-12'; ?> col-md-12 col-sm-12 col-xs-12"
                   data-spy="scroll"
             >
                 <?php
