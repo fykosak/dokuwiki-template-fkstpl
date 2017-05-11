@@ -11,7 +11,7 @@
   .progress-bar {
     background-color: @color;
   }
-  .navbar.bg-light a:not(.active) {
+  .navbar.bg-light a:not(.active):not(:focus) {
     color: @color;
   }
   .page-header {
@@ -32,26 +32,26 @@
   }
 }
 
-.namespace-color(#1175da);
+.namespace-color(@color-fykos-blue);
 
 #dokuwiki__top[data-namespace="akce:soustredeni"] {
-  .namespace-color(#75da11);
+  .namespace-color(@color-fykos-lime);
 }
 
 #dokuwiki__top[data-namespace="sex"] {
-  .namespace-color(#da1175);
+  .namespace-color(@color-fykos-pink);
 }
 
 #dokuwiki__top[data-namespace="akce:dsef"], #dokuwiki__top[data-namespace="akce:tsaf"] {
-  .namespace-color(#11da76);
+  .namespace-color(@color-fykos-green);
 }
 
 #dokuwiki__top[data-namespace="akce:fyziklani"] {
-  .namespace-color(#7611da);
+  .namespace-color(@color-fykos-purple);
 }
 
 #dokuwiki__top[data-namespace="akce"] {
-  .namespace-color(#da7611);
+  .namespace-color(@color-fykos-orange);
 }
 
 

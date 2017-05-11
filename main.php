@@ -90,7 +90,7 @@ global $conf, $ACT, $lang, $ID;
     </div>
     <hr/>
     <address class="container">
-        &copy;FYKOS &ndash; <a href="mailto:<?php echo tpl_getConf('email_webmaster') ?>"
+        Created with <i class="fa fa-heart" aria-hidden="true"></i> by &copy;FYKOS &ndash; <a href="mailto:<?php echo tpl_getConf('email_webmaster') ?>"
                                title="Kontaktní email"><?php echo tpl_getConf('email_webmaster') ?></a>
     </address>
 </div>
