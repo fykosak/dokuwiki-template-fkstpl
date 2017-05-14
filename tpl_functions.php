@@ -1,76 +1,11 @@
 <?php
 
 class fksTemplate {
-    private static $jumbotronData = [
-        'start' => [
-            [
-                'headline' => 'Týmové soutěže',
-                'text' => 'Sestav tým na Fyziklání a Fyziklání online a poměřte svoje síly s ostatními. Chceš na fyzikální souboj vyzvat svoje učitele nebo kamarády ze zahraničí? Žádný problém, Fyziklání online je dostupné pro celý svět a v kategorii open se může zúčastnit i ten, kdo už není středoškolák.',
-                'page' => 'akce:fyziklani:start',
-                'background-id' => 1,
-                'inner-container-background-id' => 1,
-            ],
-            [
-                'headline' => 'Noví kamarádi',
-                'text' => 'Neberou tě jen řeči o fotbale, nebo barvě laku na nehty. Přidej se k FYKOSu a poznej spoustu lidí, kteří mají stejné zájmy jako ty.',
-                'page' => 'akce:soustredeni:start',
-                'background-id' => 2,
-                'inner-container-background-id' => 2,
-            ],
-            [
-                'headline' => 'Nezapomenutelná soustředění',
-                'text' => 'FYKOSí soustředění patří k nejzábavnějším akcím v této galaxii. Pořádána jsou dvakrát ročně jako odměna pro nejlepší řešitele v nějakém malebném kouty naší vlasti. Jedná se o více než týden zážitkového programu, který doplňuje také odborný program v podobě přednášek a experimentů.',
-                'page' => 'akce:soustredeni:start',
-                'background-id' => 3,
-                'inner-container-background-id' => 3,
-            ],
-            [
-                'headline' => 'Věda zábavným způsobem',
-                'text' => 'Nudíš se ve škole? Pak jsi na ni možná až moc chytrý. Zapojte se do FYKOSu a získáš možnost poznat se s vědou zblízka zajímavějším způsobem. Naše úlohy jsou mnohem komplexnější než ty, které znáš z hodin fyziky. A také pořádáme spoustu exkurzí a odborných přednášek. ',
-                'page' => 'akce:soustredeni:start',
-                'background-id' => 4,
-                'inner-container-background-id' => 4,
-            ],
-            [
-                'headline' => 'Zážitky, na které se nezapomíná',
-                'text' => 'Stává se ti, že už si večer nevzpomeneš, co jsi vlastně dělal přes den ve škole. Na FYKOSím soustředění ti tohle nehrozí, zážitky jako hraní famfrpálu nebo trávení dne poslepu se prostě nezapomínají. Mimo to žádná zmrzlina nechutná tak, jako ta čerstvě připravená pomocí kapalného dusíku. ',
-                'page' => 'akce:soustredeni:start',
-                'background-id' => 5,
-                'inner-container-background-id' => 5,
-            ],
-            [
-                'headline' => 'Exkurze na vědecká pracoviště',
-                'text' => 'Už jsi byl v CERNu, viděl tokamak nebo jaderný reaktor? FYKOS pořádá exkurze na ta nejzajímavější pracoviště z oblasti fyziky a jejích aplikací, nenechej si je ujít. ',
-                'page' => 'akce:soustredeni:start',
-                'background-id' => 6,
-                'inner-container-background-id' => 6,
-            ],
-        ],
-        'akce:start' => [
-            [
-                'headline' => 'Akce FYKOSu',
-                'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam rutrum porta tellus. Aenean et
-                        dolor sed elit rutrum finibus eu a tellus. Etiam ac leo sit amet justo rhoncus sodales sed id
-                        diam.',
-                'page' => 'akce:fyziklani:start',
-                'background-id' => 'akce',
-                'inner-container-background-id' => null,
-            ],
-        ],
-        'akce:fyziklani:start' => [
-            [
-                'headline' => 'FYKOSí Fyzikláni',
-                'text' => 'Fyziklání je tradiční soutěž maximálně 5členných týmů středoškoláků, kteří se zajímají o matematiku a fyziku. Jejich úlohou bude v daném časovém limitu získat za řešení úloh co nejvíce bodů.',
-                'page' => null,
-                'background-id' => 1,
-                'inner-container-background-id' => 1,
-            ],
-        ],
-    ];
 
     public static function getRandomJumbotron($pageID) {
-        if (self::$jumbotronData[$pageID]) {
-            return self::$jumbotronData[$pageID][array_rand(self::$jumbotronData[$pageID])];
+        $data = JumbotronData::getJumbotronDataByPage($pageID);
+        if ($data) {
+            return $data[array_rand($data)];
         }
         return false;
     }
@@ -95,16 +30,14 @@ class fksTemplate {
                 </div>
                 <div class="col-lg-8 primary-menu-container hidden-md-down" style="align-self: flex-end;">
                    ';
-        self::getPrimaryNav()
-            ->render();
+        self::getPrimaryNav()->render();
 
         echo '</div>
             </div>            
         </div>';
         echo '<div class="container-fluid">
             <div class="row hidden-lg-up">';
-        self::getFullNav()
-            ->render();
+        self::getFullNav()->render();
         echo ' </div>
  </div><!-- Primary menu + FYKOS-->';
         self::printHeaderImage($lang, $pageID);
@@ -127,14 +60,17 @@ class fksTemplate {
                     <div class="offset-lg-1 col-lg-8 offset-xl-3 col-xl-5">
                         <div
                             class="jumbotron-inner-container" 
-                            ' . ($data['inner-container-background-id'] ? ' data-background="' . $data['inner-container-background-id'] . '"' : '') . '>
+                            ' . ($data['inner-container-background-id'] ? ' data-background="' .
+                    $data['inner-container-background-id'] . '"' : '') . '>
                             <h1>' . $data['headline'] . '</h1>
                             <p>' . $data['text'] . '</p>';
-            if ($data['page']) {
-                echo '<p>
-                         <a class="btn btn-secondary" role="button"
-                                   href="' . wl($data['page'], null, true) . '">See more</a>
-                     </p>';
+            if (count($data['pages'])) {
+                echo '<p>';
+                foreach ($data['pages'] as $page) {
+                    echo '<a class="btn btn-secondary" role="button" href="' . wl($page['link'], null, true) . '">' .
+                        $page['text'] . '</a> ';
+                }
+                echo '</p>';
             }
             echo '</div>
                     </div>

@@ -1,7 +1,7 @@
 <?php
 
 require_once(dirname(__FILE__) . '/tpl_functions.php'); /* include hook for template functions */
-
+require_once(dirname(__FILE__) . '/Jumbotron-data.php');
 global $conf, $ACT, $lang, $ID;
 ?><!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -70,7 +70,8 @@ global $conf, $ACT, $lang, $ID;
                 <?php
             } ?>
             <main id="dokuwiki__content"
-                  class="content dokuwiki__content container-fluid <?php echo ($ACT == 'show' && $sidebarContent) ? 'col-lg-9' : 'col-lg-12'; ?> col-md-12 col-sm-12 col-xs-12"
+                  class="content dokuwiki__content container-fluid <?php echo ($ACT == 'show' &&
+                      $sidebarContent) ? 'col-lg-9' : 'col-lg-12'; ?> col-md-12 col-sm-12 col-xs-12"
                   data-spy="scroll"
             >
                 <?php
@@ -90,8 +91,9 @@ global $conf, $ACT, $lang, $ID;
     </div>
     <hr/>
     <address class="container">
-        Created with <i class="fa fa-heart" aria-hidden="true"></i> by &copy;FYKOS &ndash; <a href="mailto:<?php echo tpl_getConf('email_webmaster') ?>"
-                               title="Kontaktní email"><?php echo tpl_getConf('email_webmaster') ?></a>
+        Created with <i class="fa fa-heart" aria-hidden="true"></i> by &copy;FYKOS &ndash; <a
+            href="mailto:<?php echo tpl_getConf('email_webmaster') ?>"
+            title="Kontaktní email"><?php echo tpl_getConf('email_webmaster') ?></a>
     </address>
 </div>
 <div class="no">
