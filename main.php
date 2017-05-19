@@ -18,6 +18,7 @@ global $conf, $ACT, $lang, $ID;
     <meta name="googlebot" content="index,follow,snippet,archive"/>
     <meta name="ICBM" content="50.1152, 14.448"/>
     <meta name="DC.title" content="FYKOS"/>
+    <meta name="author" content="Michal Červeňák"/>
     <title>
         <?php tpl_pagetitle() ?> :: <?php echo strip_tags($conf['title']) ?>
     </title>
@@ -33,11 +34,17 @@ global $conf, $ACT, $lang, $ID;
             crossorigin="anonymous"></script>
 </head>
 
-<body data-act="<?php echo $ACT; ?>">
-<div id="dokuwiki__top" class="site <?php echo tpl_classes(); ?>" data-namespace="<?php echo getNS($ID); ?>">
+<body data-act="<?php echo $ACT; ?>"
+      data-namespace="<?php echo getNS($ID); ?>"
+      data-page_id="<?php echo $ID; ?>"
+>
+<div id="dokuwiki__top" class="site <?php echo tpl_classes(); ?>"
+>
 
     <?php fksTemplate::printHeader($conf['lang'], $ID); ?>
-    <?php $sidebarContent = tpl_include_page(getNS($ID) . ':sidebar_' . $conf['lang'], 0, 0) ?: bootstrapToc(); ?>
+    <?php $sidebarContent = tpl_include_page(getNS($ID) . ':sidebar_' . $conf['lang'],
+        0,
+        0);/*?: bootstrapToc();*/ ?>
 
     <div class="container">
         <div class="row">

@@ -32,24 +32,56 @@
   }
 }
 
-.namespace-color(@color-fykos-blue);
-
-#dokuwiki__top[data-namespace="akce:soustredeni"] {
-  .namespace-color(@color-fykos-lime);
+.page-color(@color,@text-color:initial,@background:initial,@background-alt:initial) when (iscolor(@color)) {
+  color: @text-color;
+  background: @background, @background-alt;
+  .progress {
+    background-color: lighten(@color, 20%);
+  }
+  .card, .list-group-item {
+    background-color: transparent;
+  }
+  a {
+    color: @color;
+    &:hover, &:focus {
+      color: darken(@color, 10%);
+    }
+  }
+  .namespace-color(@color);
 }
 
-#dokuwiki__top[data-namespace="sex"] {
-  .namespace-color(@color-fykos-pink);
+body {
+  .namespace-color(@color-fykos-blue);
+
+  &[data-namespace="akce:soustredeni"],
+  &[data-namespace*="sous-"] {
+    .namespace-color(@color-fykos-lime);
+  }
+
+  &[data-namespace="sex"] {
+    .namespace-color(@color-fykos-pink);
+  }
+
+  &[data-namespace="akce:dsef"],
+  &[data-namespace*="dsef"],
+  &[data-namespace="akce:tsaf"],
+  &[data-namespace*="tsaf"] {
+    .namespace-color(@color-fykos-orange);
+
+  }
+
+  &[data-namespace="akce:fyziklani"],
+  &[data-namespace*="fyziklani"] {
+    .namespace-color(@color-fykos-purple);
+  }
+
+  &[data-namespace="akce"] {
+  //  .namespace-color(@color-fykos-green);
+  }
+
+  &[data-page_id="rocnik31:sous-podzim:start"] {
+    .page-color(limegreen, yellow, url(images/r3.svg), #222);
+  }
 }
 
-#dokuwiki__top[data-namespace="akce:dsef"], #dokuwiki__top[data-namespace="akce:tsaf"] {
-  .namespace-color(@color-fykos-green);
-}
 
-#dokuwiki__top[data-namespace="akce:fyziklani"] {
-  .namespace-color(@color-fykos-purple);
-}
-
-#dokuwiki__top[data-namespace="akce"] {
-  .namespace-color(@color-fykos-orange);
-}

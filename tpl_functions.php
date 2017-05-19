@@ -64,14 +64,14 @@ class fksTemplate {
                     $data['inner-container-background-id'] . '"' : '') . '>
                             <h1>' . $data['headline'] . '</h1>
                             <p>' . $data['text'] . '</p>';
-            if (count($data['pages'])) {
+           /* if (count($data['pages'])) {
                 echo '<p>';
                 foreach ($data['pages'] as $page) {
                     echo '<a class="btn btn-secondary" role="button" href="' . wl($page['link'], null, true) . '">' .
                         $page['text'] . '</a> ';
                 }
                 echo '</p>';
-            }
+            }*/
             echo '</div>
                     </div>
                 </div>
@@ -209,6 +209,4 @@ function bootstrapToc() {
     }
     $html .= '</nav>';
     return $html;
-
-
 }

@@ -4,7 +4,9 @@ class JumbotronData {
     private static $camps = [
         [
             'headline' => 'Nezapomenutelná soustředění',
-            'text' => 'FYKOSí soustředění patří k nejzábavnějším akcím v této galaxii. Pořádána jsou dvakrát ročně jako odměna pro nejlepší řešitele v nějakém malebném kouty naší vlasti. Jedná se o více než týden zážitkového programu, který doplňuje také odborný program v podobě přednášek a experimentů.',
+            'text' => 'FYKOSí soustředění patří k nejzábavnějším akcím v této galaxii. 
+            Pořádána jsou dvakrát ročně jako odměna pro nejlepší řešitele v nějakém malebném kouty naší vlasti. ',
+            // Jedná se o více než týden zážitkového programu, který doplňuje také odborný program v podobě přednášek a experimentů.',
             'pages' => [
                 [
                     'link' => 'akce:soustredeni:start',
@@ -20,13 +22,16 @@ class JumbotronData {
     private static $events = [
         [
             'headline' => 'Zážitky, na které se nezapomíná',
-            'text' => 'Stává se ti, že už si večer nevzpomeneš, co jsi vlastně dělal přes den ve škole. Na FYKOSím soustředění ti tohle nehrozí, zážitky jako hraní famfrpálu nebo trávení dne poslepu se prostě nezapomínají. Mimo to žádná zmrzlina nechutná tak, jako ta čerstvě připravená pomocí kapalného dusíku. ',
+            'text' => 'Stává se ti, že už si večer nevzpomeneš, co jsi vlastně dělal přes den ve škole. 
+            Na FYKOSím soustředění ti tohle nehrozí, zážitky jako hraní famfrpálu nebo trávení dne poslepu se prostě nezapomínají.',
+            // Mimo to žádná zmrzlina nechutná tak, jako ta čerstvě připravená pomocí kapalného dusíku. ',
             'background-id' => 5,
             'inner-container-background-id' => 5,
         ],
         [
             'headline' => 'Noví kamarádi',
-            'text' => 'Neberou tě jen řeči o fotbale, nebo barvě laku na nehty. Přidej se k FYKOSu a poznej spoustu lidí, kteří mají stejné zájmy jako ty.',
+            'text' => 'Neberou tě jen řeči o fotbale, nebo barvě laku na nehty. 
+            Přidej se k FYKOSu a poznej spoustu lidí, kteří mají stejné zájmy jako ty.',
             'page' => 'akce:start',
             'background-id' => 2,
             'inner-container-background-id' => 2,
@@ -36,7 +41,9 @@ class JumbotronData {
     private static $brawl = [
         [
             'headline' => 'Týmové soutěže',
-            'text' => 'Sestav tým na Fyziklání a Fyziklání online a poměřte svoje síly s ostatními. Chceš na fyzikální souboj vyzvat svoje učitele nebo kamarády ze zahraničí? Žádný problém, Fyziklání online je dostupné pro celý svět a v kategorii open se může zúčastnit i ten, kdo už není středoškolák.',
+            'text' => 'Sestav tým na Fyziklání a Fyziklání online a poměřte svoje síly s ostatními. 
+            Chceš na fyzikální souboj vyzvat svoje učitele nebo kamarády ze zahraničí? Žádný problém, 
+            Fyziklání online je dostupné pro celý svět a v kategorii open se může zúčastnit i ten, kdo už není středoškolák.',
             'pages' => [
                 [
                     'link' => 'akce:fyziklani:start',
@@ -55,7 +62,10 @@ class JumbotronData {
     private static $sex = [
         [
             'headline' => 'Věda zábavným způsobem',
-            'text' => 'Nudíš se ve škole? Pak jsi na ni možná až moc chytrý. Zapojte se do FYKOSu a získáš možnost poznat se s vědou zblízka zajímavějším způsobem. Naše úlohy jsou mnohem komplexnější než ty, které znáš z hodin fyziky. A také pořádáme spoustu exkurzí a odborných přednášek. ',
+            'text' => 'Nudíš se ve škole? Pak jsi na ni možná až moc chytrý. 
+            Zapojte se do FYKOSu a získáš možnost poznat se s vědou zblízka zajímavějším způsobem. 
+            Naše úlohy jsou mnohem komplexnější než ty, které znáš z hodin fyziky. ',
+            //A také pořádáme spoustu exkurzí a odborných přednášek. ',
             'page' => 'akce:dsef:start',
             'background-id' => 4,
             'inner-container-background-id' => 4,
