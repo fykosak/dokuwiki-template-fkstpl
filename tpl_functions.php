@@ -78,7 +78,7 @@ class fksTemplate {
 
             </div>';
         } else {
-            echo '<div class="container-fluid header">
+            echo '<div class="container-fluid header mb-3">
                 <div class="row nav-container hidden-md-down">';
             $secondMenu->render();
             echo '
