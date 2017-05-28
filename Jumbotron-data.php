@@ -96,7 +96,7 @@ class JumbotronData {
 
     private static $fofIntro = [
         [
-            'headline' => 'FYKOSí Fyzikláni',
+            'headline' => 'FYKOSí Fyziklání',
             'text' => 'Fyziklání je tradiční soutěž maximálně 5členných týmů středoškoláků, kteří se zajímají o matematiku a fyziku. Jejich úlohou bude v daném časovém limitu získat za řešení úloh co nejvíce bodů.',
             'page' => null,
             'background-id' => 1,
