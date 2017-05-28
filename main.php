@@ -2,6 +2,8 @@
 
 require_once(dirname(__FILE__) . '/tpl_functions.php'); /* include hook for template functions */
 require_once(dirname(__FILE__) . '/Jumbotron-data.php');
+require_once(dirname(__FILE__) . '/navBar/BootstrapNavBar.php');
+require_once(dirname(__FILE__) . '/navBar/NavBarItem.php');
 global $conf, $ACT, $lang, $ID;
 ?><!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"

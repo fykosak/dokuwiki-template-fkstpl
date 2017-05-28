@@ -1,5 +1,7 @@
 <?php
 
+//namespace fksTemplate;
+
 class fksTemplate {
 
     public static function getRandomJumbotron($pageID) {
@@ -64,14 +66,14 @@ class fksTemplate {
                     $data['inner-container-background-id'] . '"' : '') . '>
                             <h1>' . $data['headline'] . '</h1>
                             <p>' . $data['text'] . '</p>';
-           /* if (count($data['pages'])) {
-                echo '<p>';
-                foreach ($data['pages'] as $page) {
-                    echo '<a class="btn btn-secondary" role="button" href="' . wl($page['link'], null, true) . '">' .
-                        $page['text'] . '</a> ';
-                }
-                echo '</p>';
-            }*/
+            /* if (count($data['pages'])) {
+                 echo '<p>';
+                 foreach ($data['pages'] as $page) {
+                     echo '<a class="btn btn-secondary" role="button" href="' . wl($page['link'], null, true) . '">' .
+                         $page['text'] . '</a> ';
+                 }
+                 echo '</p>';
+             }*/
             echo '</div>
                     </div>
                 </div>
@@ -88,27 +90,27 @@ class fksTemplate {
     }
 
     private static function getFullNav() {
-        $fullMenu = new \fks\NavBar\BootstrapNavBar('full');
+        $fullMenu = new \fksTemplate\NavBar\BootstrapNavBar('full');
         $fullMenu->setClassName('col-xs-12 col-md-12 col-sm-12 navbar-inverse  bg-light-fykos');
         $fullMenu->addMenuText('menu-primary');
         $fullMenu->addMenuText('menu-second-left');
         $fullMenu->addMenuText('menu-second-right');
-        $fullMenu->addTools('justify-content-end');
+        $fullMenu->addTools('justify-content-end', true);
         $fullMenu->addLangSelect('justify-content-end');
         return $fullMenu;
     }
 
     private static function getPrimaryNav() {
-        $primaryMenu = new \fks\NavBar\BootstrapNavBar('primary');
+        $primaryMenu = new \fksTemplate\NavBar\BootstrapNavBar('primary');
         $primaryMenu->setClassName('navbar  bg-light');
         $primaryMenu->addMenuText('menu-primary', 'mr-auto');
-        $primaryMenu->addTools();
+        $primaryMenu->addTools(null, true);
         $primaryMenu->addLangSelect();
         return $primaryMenu;
     }
 
     private static function getSecondaryNav() {
-        $secondMenu = new \fks\NavBar\BootstrapNavBar('secondary');
+        $secondMenu = new \fksTemplate\NavBar\BootstrapNavBar('secondary');
         $secondMenu->setClassName('navbar-inverse bg-light-fykos container');
         $secondMenu->addMenuText('menu-second-left', 'mr-auto');
         $secondMenu->addMenuText('menu-second-right');
@@ -116,8 +118,7 @@ class fksTemplate {
     }
 
     private static function getFYKOSLogo() {
-        return '<?xml version="1.0" ?>
-<svg version="1.1" baseProfile="tiny" width="100" height="80" viewBox="0 0 22578 11853" preserveAspectRatio="xMidYMid" fill-rule="evenodd" fill="none" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+        return '<svg version="1.1" baseProfile="tiny" width="100" height="80" viewBox="0 0 22578 11853" preserveAspectRatio="xMidYMid" fill-rule="evenodd" fill="none" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
 <g stroke-width="250">
     <path  d="M 1218,9014 C 1015,8459 1059,7842 1339,7321 1532,6963 1828,6671 2186,6475 2555,6272 2976,6179 3394,6233 3649,6266 3892,6354 4119,6475 4327,6585 4520,6721 4724,6837 4803,6882 4883,6924 4966,6959 5120,7023 5283,7064 5449,7080"/>
     <path d="M 4120,6474 C 3997,6470 3872,6490 3757,6535 3551,6615 3378,6765 3273,6959"/>
