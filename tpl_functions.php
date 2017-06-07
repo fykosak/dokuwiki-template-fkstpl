@@ -1,18 +1,27 @@
 <?php
 
-//namespace fksTemplate;
+namespace fksTemplate;
+
+use \fksTemplate\NavBar\BootstrapNavBar;
+use \fksTemplate\Jumbotron\Jumbotron;
 
 class fksTemplate {
+    /**
+     * @var string
+     */
+    private $lang = 'cs';
 
-    public static function getRandomJumbotron($pageID) {
-        $data = JumbotronData::getJumbotronDataByPage($pageID);
-        if ($data) {
-            return $data[array_rand($data)];
-        }
-        return false;
+    /**
+     * @param string $lang
+     */
+    public function setLang($lang) {
+        $this->lang = $lang;
     }
 
-    public static function printHeader($lang, $pageID) {
+    /**
+     * @param $pageID string
+     */
+    public function printHeader($pageID) {
         echo '<header>
         <div class="container">
             <div class="row">
@@ -22,10 +31,9 @@ class fksTemplate {
                             <div class="col-xs-4">
                             ';
         echo self::getFYKOSLogo();
-        echo ' 
-                            </div>
+        echo '</div>
                             <div class="col-xs-8 h1 fykos" style="align-self: center;">
-                                FYKOS<small style="font-size: 50%">.' . ($lang == 'en' ? 'org' : 'cz') . '</small>
+                                FYKOS<small style="font-size: 50%">.' . ($this->lang == 'en' ? 'org' : 'cz') . '</small>
                             </div>
                         </div>
                     </a>
@@ -42,81 +50,50 @@ class fksTemplate {
         self::getFullNav()->render();
         echo ' </div>
  </div><!-- Primary menu + FYKOS-->';
-        self::printHeaderImage($lang, $pageID);
+        $this->printHeaderImage($pageID);
         echo '</header>';
     }
 
-    private static function printHeaderImage($lang, $pageID) {
+    /**
+     * @param $pageID string
+     */
+    private static function printHeaderImage($pageID) {
         $secondMenu = self::getSecondaryNav();
-        $data = fksTemplate::getRandomJumbotron($pageID);
-        if ($data) {
-
-            echo '<div
-                class="container-fluid header-image jumbotron"
-                data-background="' . $data['background-id'] . '">
-                <div class="row nav-container hidden-md-down">
-                   ';
-            $secondMenu->render();
-            echo '</div>
-                <div class="row">
-                    <div class="offset-lg-1 col-lg-8 offset-xl-3 col-xl-5">
-                        <div
-                            class="jumbotron-inner-container" 
-                            ' . ($data['inner-container-background-id'] ? ' data-background="' .
-                    $data['inner-container-background-id'] . '"' : '') . '>
-                            <h1>' . $data['headline'] . '</h1>
-                            <p>' . $data['text'] . '</p>';
-            /* if (count($data['pages'])) {
-                 echo '<p>';
-                 foreach ($data['pages'] as $page) {
-                     echo '<a class="btn btn-secondary" role="button" href="' . wl($page['link'], null, true) . '">' .
-                         $page['text'] . '</a> ';
-                 }
-                 echo '</p>';
-             }*/
-            echo '</div>
-                    </div>
-                </div>
-
-            </div>';
-        } else {
-            echo '<div class="container-fluid header mb-3">
-                <div class="row nav-container hidden-md-down">';
-            $secondMenu->render();
-            echo '
-                </div>
-            </div>';
-        };
+        $jumbotron = new Jumbotron();
+        $jumbotron->setPageID($pageID)->render($secondMenu);
     }
 
+    /**
+     * @return BootstrapNavBar
+     */
     private static function getFullNav() {
-        $fullMenu = new \fksTemplate\NavBar\BootstrapNavBar('full');
-        $fullMenu->setClassName('col-xs-12 col-md-12 col-sm-12 navbar-inverse  bg-light-fykos');
-        $fullMenu->addMenuText('menu-primary');
-        $fullMenu->addMenuText('menu-second-left');
-        $fullMenu->addMenuText('menu-second-right');
-        $fullMenu->addTools('justify-content-end', true);
-        $fullMenu->addLangSelect('justify-content-end');
-        return $fullMenu;
+        $fullMenu = new BootstrapNavBar('full');
+        return $fullMenu->setClassName('col-xs-12 col-md-12 col-sm-12 navbar-inverse  bg-light-fykos')
+            ->addMenuText('menu-primary')->addMenuText('menu-second-left')->addMenuText('menu-second-right')
+            ->addTools('justify-content-end', true)->addLangSelect('justify-content-end');
     }
 
+    /**
+     * @return BootstrapNavBar
+     */
     private static function getPrimaryNav() {
-        $primaryMenu = new \fksTemplate\NavBar\BootstrapNavBar('primary');
-        $primaryMenu->setClassName('navbar  bg-light');
-        $primaryMenu->addMenuText('menu-primary', 'mr-auto');
-        $primaryMenu->addTools(null, true);
-        $primaryMenu->addLangSelect();
-        return $primaryMenu;
+        $primaryMenu = new BootstrapNavBar('primary');
+        return $primaryMenu->setClassName('navbar  bg-light')->addMenuText('menu-primary', 'mr-auto')
+            ->addTools(null, true)->addLangSelect();
     }
 
+    /**
+     * @return BootstrapNavBar
+     */
     private static function getSecondaryNav() {
-        $secondMenu = new \fksTemplate\NavBar\BootstrapNavBar('secondary');
-        $secondMenu->setClassName('navbar-inverse bg-light-fykos container');
-        $secondMenu->addMenuText('menu-second-left', 'mr-auto');
-        $secondMenu->addMenuText('menu-second-right');
-        return $secondMenu;
+        $secondMenu = new BootstrapNavBar('secondary');
+        return $secondMenu->setClassName('navbar-inverse bg-light-fykos container')
+            ->addMenuText('menu-second-left', 'mr-auto')->addMenuText('menu-second-right');
     }
 
+    /**
+     * @return string
+     */
     private static function getFYKOSLogo() {
         return '<svg version="1.1" baseProfile="tiny" width="100" height="80" viewBox="0 0 22578 11853" preserveAspectRatio="xMidYMid" fill-rule="evenodd" fill="none" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
 <g stroke-width="250">
@@ -157,57 +134,4 @@ class fksTemplate {
 </g>
 </svg>';
     }
-}
-
-function bootstrapToc() {
-    global $TOC;
-    global $ACT;
-    global $ID;
-    global $REV;
-    global $INFO;
-    global $conf;
-    $html = '';
-    $toc = array();
-
-    if (is_array($TOC)) {
-        // if a TOC was prepared in global scope, always use it
-        $toc = $TOC;
-    } elseif (($ACT == 'show' || substr($ACT, 0, 6) == 'export') && !$REV && $INFO['exists']) {
-        // get TOC from metadata, render if neccessary
-        $meta = p_get_metadata($ID, '', METADATA_RENDER_USING_CACHE);
-        if (isset($meta['internal']['toc'])) {
-            $tocok = $meta['internal']['toc'];
-        } else {
-            $tocok = true;
-        }
-        $toc = isset($meta['description']['tableofcontents']) ? $meta['description']['tableofcontents'] : null;
-        if (!$tocok || !is_array($toc) || !$conf['tocminheads'] || count($toc) < $conf['tocminheads']) {
-            $toc = array();
-        }
-    } elseif ($ACT == 'admin') {
-        // try to load admin plugin TOC
-        /** @var $plugin DokuWiki_Admin_Plugin */
-        if ($plugin = plugin_getRequestAdminPlugin()) {
-            $toc = $plugin->getTOC();
-            $TOC = $toc; // avoid later rebuild
-        }
-    }
-    if (count($toc) === 0) {
-        return false;
-    }
-    $level = 0;
-    $html .= '<nav class="navbar flex-column">';
-    foreach ($toc as $item) {
-        if ($level) {
-            if ($level > $item['level']) {
-                $html .= str_repeat('</nav>', $level - $item['level']);
-            } elseif (($level < $item['level'])) {
-                $html .= str_repeat('<nav class="nav flex-column">', $item['level'] - $level);
-            }
-        }
-        $html .= '<a class="nav-link" href="#' . hsc($item['hid']) . '">' . hsc('#' . $item['title']) . '</a>';
-        $level = $item['level'];
-    }
-    $html .= '</nav>';
-    return $html;
 }

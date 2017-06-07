@@ -1,10 +1,13 @@
 <?php
 
 require_once(dirname(__FILE__) . '/tpl_functions.php'); /* include hook for template functions */
-require_once(dirname(__FILE__) . '/Jumbotron-data.php');
+require_once(dirname(__FILE__) . '/jumbotron/Jumbotron.php');
 require_once(dirname(__FILE__) . '/navBar/BootstrapNavBar.php');
 require_once(dirname(__FILE__) . '/navBar/NavBarItem.php');
 global $conf, $ACT, $lang, $ID;
+$FksTemplate = new fksTemplate\fksTemplate();
+$FksTemplate->setLang($conf['lang']);
+
 ?><!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xml:lang="<?php echo $conf['lang']; ?>"
@@ -43,35 +46,15 @@ global $conf, $ACT, $lang, $ID;
 <div id="dokuwiki__top" class="site <?php echo tpl_classes(); ?>"
 >
 
-    <?php fksTemplate::printHeader($conf['lang'], $ID); ?>
-    <?php $sidebarContent = tpl_include_page(getNS($ID) . ':sidebar_' . $conf['lang'],
-        0,
-        0);/*?: bootstrapToc();*/ ?>
+    <?php $FksTemplate->printHeader($ID); ?>
+    <?php $sidebarContent = tpl_include_page(getNS($ID) . ':sidebar_' . $conf['lang'], 0, 0); ?>
 
     <div class="container">
         <div class="row">
-            <!-- <div id="accordion" class="hidden-lg-up col-md-12 col-sm-12" role="tablist" aria-multiselectable="true">
-                <div class="card">
-                    <div class="card-header" role="tab" id="headingOne">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
-                           aria-controls="collapseOne">
-                            <span class="fa fa-caret-square-o-down"></span>
-                        </a>
-                    </div>
-
-                    <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                        <div class="card-block">
-                            <?php
-            //echo $sidebarContent
-            ?>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
-            <?php global $ACT;
+            <?php
             if ($ACT == 'show' && $sidebarContent) {
                 ?>
-                <aside class="sidebar col-lg-3 hidden-md-down container-fluid">
+                <aside class="sidebar col-lg-3 col-md-12 col-sm-12 container-fluid">
                     <?php
                     echo $sidebarContent;
                     ?>
@@ -100,7 +83,7 @@ global $conf, $ACT, $lang, $ID;
     </div>
     <hr/>
     <address class="container">
-        Created with <i class="fa fa-heart" aria-hidden="true"></i> by &copy;FYKOS &ndash; <a
+        Created with &lt;love/&gt; by &copy;FYKOS &ndash; <a
             href="mailto:<?php echo tpl_getConf('email_webmaster') ?>"
             title="Kontaktní email"><?php echo tpl_getConf('email_webmaster') ?></a>
     </address>
