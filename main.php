@@ -47,7 +47,16 @@ $FksTemplate->setLang($conf['lang']);
 >
 
     <?php $FksTemplate->printHeader($ID); ?>
-    <?php $sidebarContent = tpl_include_page(getNS($ID) . ':sidebar_' . $conf['lang'], 0, 0); ?>
+    <?php
+    $sidebarPage = p_read_metadata($ID)['current']['sidebar'];
+    $sidebarContent = null;
+    if ($sidebarPage === null) {
+        $sidebarContent = tpl_include_page(getNS($ID) . ':sidebar_' . $conf['lang'], 0, 0);
+    } elseif ($sidebarPage !== '') {
+        $sidebarContent = tpl_include_page($sidebarPage, 0, 0);
+    }
+    ?>
+    <?php ?>
 
     <div class="container">
         <div class="row">
