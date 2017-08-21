@@ -26,7 +26,7 @@ class fksTemplate {
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-10 col-sm-10 col-xs-10">
-                    <a class="page-header" href="' . wl() . '">
+                    <a class="page-header" href="' . ($this->lang == 'en' ? wl('en') : wl()) . '">
                         <div class="row">
                             <div class="col-xs-4">
                             ';
