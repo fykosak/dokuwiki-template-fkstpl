@@ -195,7 +195,7 @@ class JumbotronData {
             default:
                 return new JumbotronItem([
                     'headline' => 'Physics Brawl',
-                    'text' => 'Physics Brawl is a traditional competition of a maximum od 5-member teams of high school students with interest in maths and physics.  Their task is to obtain as much points as possible for solving physics problems in given time limit.',
+                    'text' => 'Physics Brawl is a traditional competition of a maximum of 5-member teams of high school students with interest in maths and physics.  Their task is to obtain as many points as possible for solving physics problems in given time limit.',
                     'page' => null,
                     'outer-container-background-id' => 1,
                     'inner-container-background-id' => 1,
