@@ -62,6 +62,32 @@ class JumbotronData {
         }
     }
 
+    private function getActualBrawl($lang = 'cs', $addButton = false) {
+        switch ($lang) {
+            case 'cs':
+                return new JumbotronItem([
+                    'headline' => '12. ročník FYKOSího Fyziklání',
+                    'text' => 'Máš tým 5 středoškoláků, které baví fyzika a chtěli by si zasoutěžit v mezinárodní
+                     soutěži? Sestav tým na Fyziklání a poměř svoje síly s ostatními v Praze 16. února! Na ty nejlepší
+                     čekají zajímavé ceny.' . ($addButton ? '<div><a class="btn" href="/rocnik31/fyziklani/start">Více informací</a></div>' : ''),
+                    'outer-container-background-id' => 7,
+                    'inner-container-background-id' => 1,
+                ]);
+                break;
+            case 'en':
+            default:
+                return new JumbotronItem([
+                    'headline' => '12th Physics Brawl',
+                    'text' => 'Do you have a team of 5 high school students who enjoy physics and would like to compete
+                     in the international competition? Make a team and come to compete with others in Prague on February 16!
+                     The best teams will receive attractive prizes.'
+                        . ($addButton ? '<div><a class="btn" href="/year31/physicsbrawl/start">More information</a></div>' : ''),
+                    'outer-container-background-id' => 7,
+                    'inner-container-background-id' => 1,
+                ]);
+        }
+    }
+
     /**
      * @param $lang string language code
      * @return JumbotronItem
@@ -208,10 +234,17 @@ class JumbotronData {
      * @return JumbotronGroup
      */
     public function getJumbotronDataByPage($page) {
+        if (preg_match('/^rocnik31:fyziklani.*/', $page)) {
+            return new JumbotronGroup([$this->getActualBrawl('cs', false)]);
+        }
+        if (preg_match('/^year31:physicsbrawl.*/', $page)) {
+            return new JumbotronGroup([$this->getActualBrawl('en', false)]);
+        }
         switch ($page) {
             case 'start':
                 return new JumbotronGroup([
                     $this->getBrawl(),
+                    $this->getActualBrawl('cs', true),
                     $this->getCamps(),
                     $this->getDsef(),
                     $this->getEvents(),
@@ -221,6 +254,7 @@ class JumbotronData {
             case 'en':
                 return new JumbotronGroup([
                     $this->getBrawl('en'),
+                    $this->getActualBrawl('en', true),
                     $this->getCamps('en'),
                     $this->getDsef('en'),
                     $this->getEvents('en'),
@@ -228,9 +262,11 @@ class JumbotronData {
                     $this->getSex('en'),
                 ]);
             case 'akce:fyziklani:start':
-                return new JumbotronGroup([$this->getFOFIntro()]);
+                //return new JumbotronGroup([$this->getFOFIntro()]);
+                return new JumbotronGroup([$this->getActualBrawl('cs', true)]);
             case 'events:physicsbrawl:start':
-                return new JumbotronGroup([$this->getFOFIntro('en')]);
+                //return new JumbotronGroup([$this->getFOFIntro('en')]);
+                return new JumbotronGroup([$this->getActualBrawl('en', true)]);
             default:
                 return new JumbotronGroup([]);
         }
