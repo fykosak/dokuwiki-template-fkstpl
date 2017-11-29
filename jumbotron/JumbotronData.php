@@ -68,7 +68,7 @@ class JumbotronData {
                 return new JumbotronItem([
                     'headline' => '12. ročník FYKOSího Fyziklání',
                     'text' => 'Máš tým 5 středoškoláků, které baví fyzika a chtěli by si zasoutěžit v mezinárodní
-                     soutěži? Sestav tým na Fyziklání a poměř svoje síly s ostatními v Praze 16. února! Na ty nejlepší
+                     soutěži? Sestav tým na Fyziklání a poměř svoje síly s ostatními v Praze 16. 2.! Na ty nejlepší
                      čekají zajímavé ceny.' . ($addButton ? '<div><a class="btn" href="/rocnik31/fyziklani/start">Více informací</a></div>' : ''),
                     'outer-container-background-id' => 7,
                     'inner-container-background-id' => 1,
@@ -79,12 +79,34 @@ class JumbotronData {
                 return new JumbotronItem([
                     'headline' => '12th Physics Brawl',
                     'text' => 'Do you have a team of 5 high school students who enjoy physics and would like to compete
-                     in the international competition? Make a team and come to compete with others in Prague on February 16!
+                     in the international competition? Make a team and come to compete with others in Prague on February 16th!
                      The best teams will receive attractive prizes.'
                         . ($addButton ? '<div><a class="btn" href="/year31/physicsbrawl/start">More information</a></div>' : ''),
                     'outer-container-background-id' => 7,
                     'inner-container-background-id' => 1,
                 ]);
+        }
+    }
+
+    private function getVaf($lang = 'cs', $addButton = false) {
+        switch ($lang) {
+            case 'cs':
+                return new JumbotronItem([
+                    'headline' => 'Víkend s aplikovanou fyzikou',
+                    'text' => 'Po FYKOSím Fyziklální se můžete těšit na Víkend s aplikovanou fyzikou plný exkurzí, přednášek a deskových her. Navštívíme hvězdárnu, Národní technické muzeum a spoustu dalších zajímavých míst.' . ($addButton ? '<div><a class="btn" href="/rocnik31/vaf/start">Více informací</a></div>' : ''),
+                    'outer-container-background-id' => 'vaf',
+                    'inner-container-background-id' => 1,
+                ]);
+                break;
+            case 'en':
+            default:
+            return new JumbotronItem([
+                'headline' => 'Weekend With Applied Physics',
+                'text' => 'You can enjoy Weekend With Applied Physics after FYKOS Physics Brawl. It is a weekend full of excursions, lectures and board games. We are going to visit the observatory, the National Technical Museum and many other interesting places.'
+                    . ($addButton ? '<div><a class="btn" href="/year31/wap/start">More information</a></div>' : ''),
+                'outer-container-background-id' => 'vaf',
+                'inner-container-background-id' => 1,
+            ]);
         }
     }
 
@@ -240,26 +262,34 @@ class JumbotronData {
         if (preg_match('/^year31:physicsbrawl.*/', $page)) {
             return new JumbotronGroup([$this->getActualBrawl('en', false)]);
         }
+        if (preg_match('/^rocnik31:vaf.*/', $page)) {
+            return new JumbotronGroup([$this->getVaf('cs', false)]);
+        }
+        if (preg_match('/^year31:wap.*/', $page)) {
+            return new JumbotronGroup([$this->getVaf('en', false)]);
+        }
         switch ($page) {
             case 'start':
                 return new JumbotronGroup([
-                    $this->getBrawl(),
+                    //$this->getBrawl(),
                     $this->getActualBrawl('cs', true),
-                    $this->getCamps(),
+                    $this->getVaf('cs', true),
+                    /*$this->getCamps(),
                     $this->getDsef(),
                     $this->getEvents(),
                     $this->getNewFriends(),
-                    $this->getSex(),
+                    $this->getSex(),*/
                 ]);
             case 'en':
                 return new JumbotronGroup([
-                    $this->getBrawl('en'),
+                    //$this->getBrawl('en'),
                     $this->getActualBrawl('en', true),
-                    $this->getCamps('en'),
+                    $this->getVaf('en', true),
+                    /*$this->getCamps('en'),
                     $this->getDsef('en'),
                     $this->getEvents('en'),
                     $this->getNewFriends('en'),
-                    $this->getSex('en'),
+                    $this->getSex('en'),*/
                 ]);
             case 'akce:fyziklani:start':
                 //return new JumbotronGroup([$this->getFOFIntro()]);
