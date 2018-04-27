@@ -8,6 +8,11 @@
         margin-top: 6rem;
         padding: 1.5rem;
         color: white;
+        .btn {
+            background-color: initial;
+            border-color: white;
+            color: white;
+        }
     }
 
     .jumbotron-inner-container {
@@ -30,6 +35,7 @@
             background-color: fade(@color-fykos-purple, 70%);
         }
     }
+
     &[data-background="1"] {
         background-image: url(images/bg_start/04.jpg);
     }
@@ -54,6 +60,13 @@
     &[data-background="akce"] {
         background-color: @color-fykos-green;
     }
+    &[data-background="7"] {
+        background-image: url(images/bg_start/fof.jpg);
+        background-position-y: 20%;
+    }
+    &[data-background="vaf"] {
+        background-image: url(images/bg_start/vaf.jpg);
+    }
     .second-nav-jumbotron {
         position: absolute;
         top: 0;
@@ -65,4 +78,5 @@
         top: 0;
         left: 0;
     }
+
 }
