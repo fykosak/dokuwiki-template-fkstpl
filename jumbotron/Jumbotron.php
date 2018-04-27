@@ -12,50 +12,80 @@ class Jumbotron {
     /**
      * @var string
      */
-    private $pageID;
+    private $pageId;
 
     /**
-     * @param $pageID
+     * @param $pageId
      * @return $this
      */
-    public function setPageID($pageID) {
-        $this->pageID = $pageID;
+    public function setPageId($pageId) {
+        $this->pageId = $pageId;
         return $this;
+    }
+
+    private function printSecondMenuContainer(BootstrapNavBar $secondMenu) {
+        echo '<div class="row nav-container hidden-md-down second-nav">';
+        $secondMenu->render();
+        echo '</div>';
+    }
+
+    private function printCarouselContainer($stream) {
+        echo '<div class="carousel-container">';
+        echo p_render('xhtml', p_get_instructions('{{news-carousel>stream="' . $stream . '"}}'), $info);
+        echo '</div>';
+    }
+
+    private function printJumbotronContainer(JumbotronItem $item) {
+        echo '<div class="row" data-background="' . $item->getOuterContainerBackgroundId() . '">';
+
+        if ($item->getHeadline() || $item->getText()) {
+            echo '<div class="offset-lg-1 col-lg-8 offset-xl-3 col-xl-5">';
+            echo '<div class="jumbotron-inner-container"    
+                             data-background="' . $item->getInnerContainerBackgroundId() . '">';
+            echo '<h1>' . $item->getHeadline() . '</h1>';
+            echo '<p>' . $item->getText() . '</p>';
+            echo '</div>';
+            echo '</div>';
+        }
+        echo '</div>';
     }
 
     /**
      * @param BootstrapNavBar $secondMenu
      */
     public function render(BootstrapNavBar $secondMenu) {
+        $stream = $this->getStreamByPage();
         $jumbotronData = new JumbotronData();
-        $item = $jumbotronData->getJumbotronDataByPage($this->pageID)->getRandom();
-        if ($item) {
-            echo '<div
-                class="container-fluid header-image jumbotron"
-                data-background="' . $item->getOuterContainerBackgroundID() . '">
-                <div class="row nav-container hidden-md-down">
-                   ';
-            $secondMenu->render();
-            echo '</div>
-                <div class="row">
-                    <div class="offset-lg-1 col-lg-8 offset-xl-3 col-xl-5">
-                        <div
-                            class="jumbotron-inner-container" 
-                            data-background="' . $item->getInnerContainerBackgroundID() . '">
-                            <h1>' . $item->getHeadline() . '</h1>
-                            <p>' . $item->getText() . '</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>';
+        $item = $jumbotronData->getJumbotronDataByPage($this->pageId)->getRandom();
+        if ($stream) {
+            echo '<div class="container-fluid header-image jumbotron">';
+            $this->printCarouselContainer($stream);
+            $this->printSecondMenuContainer($secondMenu);
+            echo '</div>';
+        } else if ($item) {
+            echo '<div class="container-fluid header-image jumbotron">';
+            $this->printJumbotronContainer($item);
+            $this->printSecondMenuContainer($secondMenu);
+            echo '</div>';
         } else {
-            echo '<div class="container-fluid header mb-3">
-                <div class="row nav-container hidden-md-down">';
-            $secondMenu->render();
-            echo '
-                </div>
-            </div>';
-        };
+            echo '<div class="container-fluid header mb-3">';
+            $this->printSecondMenuContainer($secondMenu);
+            echo '</div>';
+        }
+    }
+
+    private function getStreamByPage() {
+        switch ($this->pageId) {
+            case 'start':
+                return 'home-cz';
+            case 'en':
+                return 'home-carousel-en';
+            case 'akce:fyziklani:start':
+                return 'TSAF-cz';
+            case 'events:physicsbrawl:start':
+                return 'fof-carousel-en';
+            default:
+                return null;
+        }
     }
 }
