@@ -15,6 +15,10 @@
         }
     }
 
+    .carousel-item, .jumbotron-background {
+        height: 25rem;
+    }
+
     .jumbotron-inner-container {
         &[data-background="1"] {
             background-color: fade(@color-fykos-blue, 70%);
@@ -35,45 +39,42 @@
             background-color: fade(@color-fykos-purple, 70%);
         }
     }
+    .jumbotron-background {
+        background-size: cover;
+        &[data-background="1"] {
+            background-image: url(images/bg_start/04.jpg);
+        }
+        &[data-background="2"] {
+            background-image: url(images/bg_start/18a.jpg);
+        }
+        &[data-background="3"] {
+            background-image: url(images/bg_start/47.jpg);
+        }
+        &[data-background="4"] {
+            background: url(images/bg_start/55.jpg) 50% 0;
+        }
+        &[data-background="5"] {
+            background-image: url(images/bg_start/58.jpg);
+        }
+        &[data-background="6"] {
+            background-image: url(images/bg_start/68.jpg);
+        }
+        &[data-background="fof"] {
+            background-color: @color-fykos-purple;
+        }
+        &[data-background="akce"] {
+            background-color: @color-fykos-green;
+        }
+        &[data-background="7"] {
+            background-image: url(images/bg_start/fof.jpg);
+            background-position-y: 20%;
+        }
+        &[data-background="vaf"] {
+            background-image: url(images/bg_start/vaf.jpg);
+        }
+    }
 
-    &[data-background="1"] {
-        background-image: url(images/bg_start/04.jpg);
-    }
-    &[data-background="2"] {
-        background-image: url(images/bg_start/18a.jpg);
-    }
-    &[data-background="3"] {
-        background-image: url(images/bg_start/47.jpg);
-    }
-    &[data-background="4"] {
-        background: url(images/bg_start/55.jpg) 50% 0;
-    }
-    &[data-background="5"] {
-        background-image: url(images/bg_start/58.jpg);
-    }
-    &[data-background="6"] {
-        background-image: url(images/bg_start/68.jpg);
-    }
-    &[data-background="fof"] {
-        background-color: @color-fykos-purple;
-    }
-    &[data-background="akce"] {
-        background-color: @color-fykos-green;
-    }
-    &[data-background="7"] {
-        background-image: url(images/bg_start/fof.jpg);
-        background-position-y: 20%;
-    }
-    &[data-background="vaf"] {
-        background-image: url(images/bg_start/vaf.jpg);
-    }
-    .second-nav-jumbotron {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-    }
-    .second-nav {
+    .second-nav, .second-nav-jumbotron {
         position: absolute;
         top: 0;
         left: 0;

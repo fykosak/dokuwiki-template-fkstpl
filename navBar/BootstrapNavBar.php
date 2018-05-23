@@ -198,16 +198,14 @@ class BootstrapNavBar {
         ]);
 
         foreach ($conf['available_lang'] as $currentLang) {
-
             $data[] = new NavBarItem([
                 'id' => null,
                 'level' => 2,
                 'content' => '<a 
-                href="' . $currentLang['content']['url'] . '" 
-                class="dropdown-item ' . $currentLang['content']['class'] . ' ' .
+                href="' . wl($currentLang['id']) . '" 
+                class="dropdown-item ' .
                     ($currentLang['code'] == $conf['lang'] ? 'active' : '') . '"
-                ' . $currentLang['content']['more'] . '
-                >' . $currentLang['content']['text'] . ' </a> '
+                >' . $currentLang['name'] . ' </a> '
             ]);
         }
         $this->data[] = [

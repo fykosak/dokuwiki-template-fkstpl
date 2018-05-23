@@ -36,7 +36,7 @@ class Jumbotron {
     }
 
     private function printJumbotronContainer(JumbotronItem $item) {
-        echo '<div class="row" data-background="' . $item->getOuterContainerBackgroundId() . '">';
+        echo '<div class="row jumbotron-background" data-background="' . $item->getOuterContainerBackgroundId() . '">';
 
         if ($item->getHeadline() || $item->getText()) {
             echo '<div class="offset-lg-1 col-lg-8 offset-xl-3 col-xl-5">';
@@ -77,11 +77,11 @@ class Jumbotron {
     private function getStreamByPage() {
         switch ($this->pageId) {
             case 'start':
-                return 'home-cz';
+                return 'home-carousel-cs';
             case 'en':
                 return 'home-carousel-en';
             case 'akce:fyziklani:start':
-                return 'TSAF-cz';
+                return 'fof-carousel-cs';
             case 'events:physicsbrawl:start':
                 return 'fof-carousel-en';
             default:
