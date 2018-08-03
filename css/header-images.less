@@ -1,13 +1,16 @@
 .header-image {
     background-color: transparent;;
-    padding-top: 0 !important;
+    padding: 0 !important;
     border-radius: 0;
-    height: 25em;
 
     .jumbotron-inner-container {
-        margin-top: 6rem;
+        margin-top: 15px;
+        margin-bottom: 15px;
         padding: 1.5rem;
         color: white;
+        a {
+            color: white;
+        }
         .btn {
             background-color: initial;
             border-color: white;
@@ -15,8 +18,15 @@
         }
     }
 
-    .carousel-item, .jumbotron-background {
-        height: 25rem;
+    @media (min-width: 992px) { // Bootstrap: large devices
+        .jumbotron-inner-container {
+            margin-top: 6rem;
+            margin-bottom: 2rem;
+        }
+    }
+
+    .carousel-item {
+        background-position: center center;
     }
 
     .jumbotron-inner-container {
