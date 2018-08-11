@@ -15,18 +15,18 @@ class JumbotronItem {
     /**
      * @var number|string
      */
-    private $innerContainerBackgroundID;
+    private $innerContainerBackgroundId;
     /**
      * @var number|string
      */
-    private $outerContainerBackgroundID;
+    private $outerContainerBackgroundId;
 
 
     public function __construct($params) {
         $this->headline = $params['headline'];
         $this->text = $params['text'];
-        $this->innerContainerBackgroundID = $params['inner-container-background-id'];
-        $this->outerContainerBackgroundID = $params['outer-container-background-id'];
+        $this->innerContainerBackgroundId = $params['inner-container-background-id'];
+        $this->outerContainerBackgroundId = $params['outer-container-background-id'];
     }
 
     /**
@@ -46,14 +46,14 @@ class JumbotronItem {
     /**
      * @return number|string
      */
-    public function getInnerContainerBackgroundID() {
-        return $this->innerContainerBackgroundID;
+    public function getInnerContainerBackgroundId() {
+        return $this->innerContainerBackgroundId;
     }
 
     /**
      * @return number|string
      */
-    public function getOuterContainerBackgroundID() {
-        return $this->outerContainerBackgroundID;
+    public function getOuterContainerBackgroundId() {
+        return $this->outerContainerBackgroundId;
     }
 }

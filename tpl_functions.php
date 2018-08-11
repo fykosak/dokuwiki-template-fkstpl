@@ -48,7 +48,7 @@ class fksTemplate {
         echo '<div class="container-fluid">
             <div class="row hidden-lg-up">';
         self::getFullNav()->render();
-        echo ' </div>
+        echo '</div>
  </div><!-- Primary menu + FYKOS-->';
         $this->printHeaderImage($pageID);
         echo '</header>';
