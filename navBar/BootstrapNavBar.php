@@ -202,10 +202,11 @@ class BootstrapNavBar {
                 'id' => null,
                 'level' => 2,
                 'content' => '<a 
-                href="' . wl($currentLang['id']) . '" 
-                class="dropdown-item ' .
+                href="' . $currentLang['content']['url'] . '"  
+                class="dropdown-item ' . $currentLang['content']['class'] . ' ' .
                     ($currentLang['code'] == $conf['lang'] ? 'active' : '') . '"
-                >' . $currentLang['name'] . ' </a> '
+                ' . $currentLang['content']['more'] . ' 
+                >' . $currentLang['content']['text'] . ' </a> '
             ]);
         }
         $this->data[] = [
