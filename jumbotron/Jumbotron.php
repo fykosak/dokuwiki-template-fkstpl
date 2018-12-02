@@ -74,7 +74,32 @@ class Jumbotron {
         }
     }
 
+    /**
+     * This function determines if the stream will appear on the page and has higher priority than standart (deprecated)
+     * carousel.
+     * Should be changed somehow to be available through DW GUI
+     * @return null|string
+     */
     private function getStreamByPage() {
+        // For every page about fyziklani and vaf
+
+        if (preg_match('/^rocnik..:fyziklani.*/', $this->pageId)) {
+            return 'fof-carousel-cs';
+        }
+
+        if (preg_match('/^year..:physicsbrawl.*/', $this->pageId)) {
+            return 'fof-carousel-en';
+        }
+
+        if (preg_match('/^rocnik..:vaf.*/', $this->pageId)) {
+            return 'fof-carousel-cs';
+        }
+
+        if (preg_match('/^year..:wap.*/', $this->pageId)) {
+            return 'fof-carousel-en';
+        }
+
+        // For single pages only
         switch ($this->pageId) {
             case 'start':
                 return 'home-carousel-cs';
