@@ -1,28 +1,21 @@
 <?php
 
-namespace fksTemplate;
+namespace FYKOS\dokuwiki\template\FYKOSTemplate;
 
-use \fksTemplate\NavBar\BootstrapNavBar;
-use \fksTemplate\Jumbotron\Jumbotron;
+use FYKOS\dokuwiki\template\NavBar\BootstrapNavBar;
+use FYKOS\dokuwiki\template\Jumbotron\Jumbotron;
 
-class fksTemplate {
-    /**
-     * @var string
-     */
-    private $lang = 'cs';
+class FYKOSTemplate {
 
-    /**
-     * @param string $lang
-     */
-    public function setLang($lang) {
+    private string $lang = 'cs';
+
+    public function setLang(string $lang): void {
         $this->lang = $lang;
     }
 
-    /**
-     * @param $pageID string
-     */
-    public function printHeader($pageID) {
-        echo '<header>
+    public function printHeader(string $pageId): string {
+
+        $html = '<header>
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-10 col-sm-10 col-xs-10">
@@ -30,8 +23,8 @@ class fksTemplate {
                         <div class="row">
                             <div class="col-xs-4">
                             ';
-        echo self::getFYKOSLogo();
-        echo '</div>
+        $html .= self::getFYKOSLogo();
+        $html .= '</div>
                             <div class="col-xs-8 h1 fykos" style="align-self: center;">
                                 FYKOS<small style="font-size: 50%">.' . ($this->lang == 'en' ? 'org' : 'cz') . '</small>
                             </div>
@@ -40,61 +33,53 @@ class fksTemplate {
                 </div>
                 <div class="col-lg-8 primary-menu-container hidden-md-down" style="align-self: flex-end;">
                    ';
-        self::getPrimaryNav()->render();
+        $html .= self::getPrimaryNav()->render();
 
-        echo '</div>
-            </div>            
+        $html .= '</div>
+            </div>
         </div>';
-        echo '<div class="container-fluid">
+        $html .= '<div class="container-fluid">
             <div class="row hidden-lg-up">';
-        self::getFullNav()->render();
-        echo '</div>
+        $html .= self::getFullNav()->render();
+        $html .= '</div>
  </div><!-- Primary menu + FYKOS-->';
-        $this->printHeaderImage($pageID);
-        echo '</header>';
+        $html .= $this->printHeaderImage($pageId);
+        $html .= '</header>';
+        return $html;
     }
 
-    /**
-     * @param $pageID string
-     */
-    private static function printHeaderImage($pageID) {
+    private static function printHeaderImage(string $pageId): string {
         $secondMenu = self::getSecondaryNav();
-        $jumbotron = new Jumbotron();
-        $jumbotron->setPageID($pageID)->render($secondMenu);
+        $jumbotron = new Jumbotron($pageId);
+        return $jumbotron->render($secondMenu);
     }
 
-    /**
-     * @return BootstrapNavBar
-     */
-    private static function getFullNav() {
-        $fullMenu = new BootstrapNavBar('full');
-        return $fullMenu->setClassName('col-xs-12 col-md-12 col-sm-12 navbar-inverse  bg-light-fykos')
-            ->addMenuText('menu-primary')->addMenuText('menu-second-left')->addMenuText('menu-second-right')
-            ->addTools('justify-content-end', true)->addLangSelect('justify-content-end');
+    private static function getFullNav(): BootstrapNavBar {
+        $fullMenu = new BootstrapNavBar('full', 'col-xs-12 col-md-12 col-sm-12 navbar-inverse  bg-light-fykos');
+        $fullMenu->addMenuText('menu-primary');
+        $fullMenu->addMenuText('menu-second-left');
+        $fullMenu->addMenuText('menu-second-right');
+        $fullMenu->addTools('justify-content-end', true);
+        $fullMenu->addLangSelect('justify-content-end');
+        return $fullMenu;
     }
 
-    /**
-     * @return BootstrapNavBar
-     */
-    private static function getPrimaryNav() {
-        $primaryMenu = new BootstrapNavBar('primary');
-        return $primaryMenu->setClassName('navbar  bg-light')->addMenuText('menu-primary', 'mr-auto')
-            ->addTools(null, true)->addLangSelect();
+    private static function getPrimaryNav(): BootstrapNavBar {
+        $primaryMenu = new BootstrapNavBar('primary', 'navbar  bg-light');
+        $primaryMenu->addMenuText('menu-primary', 'mr-auto');
+        $primaryMenu->addTools(null, true);
+        $primaryMenu->addLangSelect();
+        return $primaryMenu;
     }
 
-    /**
-     * @return BootstrapNavBar
-     */
-    private static function getSecondaryNav() {
-        $secondMenu = new BootstrapNavBar('secondary');
-        return $secondMenu->setClassName('navbar-inverse bg-light-fykos container')
-            ->addMenuText('menu-second-left', 'mr-auto')->addMenuText('menu-second-right');
+    private static function getSecondaryNav(): BootstrapNavBar {
+        $secondMenu = new BootstrapNavBar('secondary', 'navbar-inverse bg-light-fykos container');
+        $secondMenu->addMenuText('menu-second-left', 'mr-auto');
+        $secondMenu->addMenuText('menu-second-right');
+        return $secondMenu;
     }
 
-    /**
-     * @return string
-     */
-    private static function getFYKOSLogo() {
+    private static function getFYKOSLogo(): string {
         return '<svg version="1.1" baseProfile="tiny" width="100" height="80" viewBox="0 0 22578 11853" preserveAspectRatio="xMidYMid" fill-rule="evenodd" fill="none" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
 <g stroke-width="250">
     <path  d="M 1218,9014 C 1015,8459 1059,7842 1339,7321 1532,6963 1828,6671 2186,6475 2555,6272 2976,6179 3394,6233 3649,6266 3892,6354 4119,6475 4327,6585 4520,6721 4724,6837 4803,6882 4883,6924 4966,6959 5120,7023 5283,7064 5449,7080"/>
