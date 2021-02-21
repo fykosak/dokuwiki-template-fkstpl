@@ -33,10 +33,27 @@ $FksTemplate->setLang($conf['lang']);
     <?php tpl_metaheaders() ?>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <?php echo tpl_favicon(array('favicon')) ?>
-
+    <script
+        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
+        crossorigin="anonymous"></script>
+    <script>window.Tether = window.Tether || {};</script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
             integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
             crossorigin="anonymous"></script>
+
+    <?php if (tpl_getConf('ga_trackcode')): ?>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo tpl_getConf('ga_trackcode'); ?>"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '<?php echo tpl_getConf('ga_trackcode'); ?>');
+    </script>
+    <?php endif; ?>
+
 </head>
 
 <body data-act="<?php echo $ACT; ?>"
@@ -100,11 +117,6 @@ $FksTemplate->setLang($conf['lang']);
 <div class="no">
     <?php tpl_indexerWebBug() /* provide DokuWiki housekeeping, required in all templates */ ?>
 </div>
-<script type="text/javascript"><!--
-    _ga.create('<?php echo tpl_getConf('ga_trackcode'); ?>', '<?php echo $_SERVER['HTTP_HOST']; ?>');
-    _gaq.push(['_trackPageview']);
-    //-->
-</script>
 </body>
 </html>
 <?php
