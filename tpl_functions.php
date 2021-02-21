@@ -79,7 +79,7 @@ class fksTemplate {
     private static function getPrimaryNav() {
         $primaryMenu = new BootstrapNavBar('primary');
         return $primaryMenu->setClassName('navbar  bg-light')->addMenuText('menu-primary', 'mr-auto')
-            ->addTools(null, true)->addLangSelect();
+            ->addTools('', true)->addLangSelect();
     }
 
     /**
