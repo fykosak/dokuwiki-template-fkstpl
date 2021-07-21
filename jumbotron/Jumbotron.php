@@ -2,115 +2,114 @@
 
 namespace fksTemplate\Jumbotron;
 
-require_once(dirname(__FILE__) . '/JumbotronData.php');
-require_once(dirname(__FILE__) . '/JumbotronGroup.php');
 require_once(dirname(__FILE__) . '/JumbotronItem.php');
 
 use fksTemplate\NavBar\BootstrapNavBar;
 
-class Jumbotron {
-    /**
-     * @var string
-     */
-    private $pageId;
-
-    /**
-     * @param $pageId
-     * @return $this
-     */
-    public function setPageId($pageId) {
-        $this->pageId = $pageId;
-        return $this;
-    }
-
-    private function printSecondMenuContainer(BootstrapNavBar $secondMenu) {
+final class Jumbotron
+{
+    public static function render(BootstrapNavBar $secondMenu, string $pageId): void
+    {
+        $items = self::getItemsByPage($pageId);
+        echo '<div class="container-fluid header-image jumbotron">';
+        echo '<div class="carousel-container">';
+        echo self::innerRender($items);
+        echo '</div>';
         echo '<div class="row nav-container hidden-md-down second-nav">';
         $secondMenu->render();
         echo '</div>';
-    }
-
-    private function printCarouselContainer($stream) {
-        echo '<div class="carousel-container">';
-        echo p_render('xhtml', p_get_instructions('{{news-carousel>stream="' . $stream . '"}}'), $info);
         echo '</div>';
     }
 
-    private function printJumbotronContainer(JumbotronItem $item) {
-        echo '<div class="row jumbotron-background" data-background="' . $item->getOuterContainerBackgroundId() . '">';
-
-        if ($item->getHeadline() || $item->getText()) {
-            echo '<div class="offset-lg-1 col-lg-8 offset-xl-3 col-xl-5">';
-            echo '<div class="jumbotron-inner-container"    
-                             data-background="' . $item->getInnerContainerBackgroundId() . '">';
-            echo '<h1>' . $item->getHeadline() . '</h1>';
-            echo '<p>' . $item->getText() . '</p>';
-            echo '</div>';
-            echo '</div>';
+    public static function innerRender(array $items): string
+    {
+        $id = uniqid();
+        $indicators = [];
+        $parsedItems = [];
+        foreach ($items as $key => $item) {
+            $indicators[] = '<li data-target="#' . $id . '" data-slide-to="' . $key . '"></li>';
+            $parsedItems[] = self::getCarouselItem($item, !$key);
         }
-        echo '</div>';
+        $html = '<div id="' . $id . '" class="feed-carousel carousel slide mb-3" data-ride="carousel">';
+
+        $html .= '<ol class="carousel-indicators">';
+        $html .= join('', $indicators);
+        $html .= '</ol>';
+
+
+        $html .= '<div class="carousel-inner" role="listbox">';
+        $html .= join('', $parsedItems);
+        $html .= '</div>';
+
+        $html .= '</div>';
+        return $html;
+    }
+
+    private static function getCarouselItem(JumbotronItem $item, bool $active): string
+    {
+        $style = null;
+        if (is_string($item->backgrounds['outer'])) {
+            $style = 'background-image: url(' . ml($item->backgrounds['outer'], ['w' => 1200]) . ')';
+        }
+
+        $html = '<div class="carousel-item ' .
+            ($style ? '' : 'bg-' . $item->backgrounds['inner'] . '-fade ') .
+            ($active ? ' active' : '') .
+            '" style="' . ($style ?? '') . '">
+            <div class="mx-auto col-lg-8 col-xl-5">
+      <div class=" jumbotron-inner-container d-block ' . ($style ? 'bg-' . $item->backgrounds['inner'] . '-fade ' : '') . '">';
+
+        $html .= '<h1>' . hsc($item->headline) . '</h1>';
+        $html .= '<p>' . p_render('xhtml', p_get_instructions($item->text), $info) . '</p>';
+        $html .= self::getButtons($item);
+
+        $html .= '</div></div></div>';
+        return $html;
+    }
+
+    private static function getButtons(JumbotronItem $item): string
+    {
+        $html = '';
+        foreach ($item->buttons as $button) {
+            $id = $button['page'];
+
+            if (preg_match('|^https?://|', $id)) {
+                $href = hsc($id);
+            } else {
+                $href = wl($id, null, true);
+            }
+            $html .= '<p><a class="btn btn-outline-secondary" href="' . $href . '">' . $button['title'] . '</a></p>';
+
+        }
+        return $html;
+    }
+
+    private static function getDataFromJSON(string $dataPage): array
+    {
+        $content = io_readFile(wikiFN($dataPage));
+        $data = json_decode($content, true);
+        $items = [];
+        if ($data) {
+            foreach ($data as $datum) {
+                $items[] = new  JumbotronItem($datum);
+            }
+        }
+        return $items;
     }
 
     /**
-     * @param BootstrapNavBar $secondMenu
+     * @param string $page
+     * @return JumbotronItem[]
      */
-    public function render(BootstrapNavBar $secondMenu) {
-        $stream = $this->getStreamByPage();
-        $jumbotronData = new JumbotronData();
-        $item = $jumbotronData->getJumbotronDataByPage($this->pageId)->getRandom();
-        if ($stream) {
-            echo '<div class="container-fluid header-image jumbotron">';
-            $this->printCarouselContainer($stream);
-            $this->printSecondMenuContainer($secondMenu);
-            echo '</div>';
-        } else if ($item) {
-            echo '<div class="container-fluid header-image jumbotron">';
-            $this->printJumbotronContainer($item);
-            $this->printSecondMenuContainer($secondMenu);
-            echo '</div>';
-        } else {
-            echo '<div class="container-fluid header mb-3">';
-            $this->printSecondMenuContainer($secondMenu);
-            echo '</div>';
-        }
-    }
-
-    /**
-     * This function determines if the stream will appear on the page and has higher priority than standart (deprecated)
-     * carousel.
-     * Should be changed somehow to be available through DW GUI
-     * @return null|string
-     */
-    private function getStreamByPage() {
-        // For every page about fyziklani and vaf
-
-        if (preg_match('/^rocnik..:fyziklani.*/', $this->pageId)) {
-            return 'fof-carousel-cs';
-        }
-
-        if (preg_match('/^year..:physicsbrawl.*/', $this->pageId)) {
-            return 'fof-carousel-en';
-        }
-
-        if (preg_match('/^rocnik..:vaf.*/', $this->pageId)) {
-            return 'fof-carousel-cs';
-        }
-
-        if (preg_match('/^year..:wap.*/', $this->pageId)) {
-            return 'fof-carousel-en';
-        }
-
-        // For single pages only
-        switch ($this->pageId) {
+    public static function getItemsByPage(string $page): array
+    {
+        switch ($page) {
             case 'start':
-                return 'home-carousel-cs';
+                return self::getDataFromJSON('jumbotron-data-cs');
             case 'en':
-                return 'home-carousel-en';
-            case 'akce:fyziklani:start':
-                return 'fof-carousel-cs';
-            case 'events:physicsbrawl:start':
-                return 'fof-carousel-en';
+                return self::getDataFromJSON('jumbotron-data-en');
             default:
-                return null;
+                return [];
         }
     }
 }

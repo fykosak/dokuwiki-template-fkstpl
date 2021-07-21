@@ -2,7 +2,8 @@
 
 namespace fksTemplate\NavBar;
 
-class BootstrapNavBar {
+class BootstrapNavBar
+{
 
     /**
      * @var array
@@ -27,7 +28,8 @@ class BootstrapNavBar {
 
     const USER_TOOLS_CONTAINER = 'div class="tools"';
 
-    public function __construct($id) {
+    public function __construct($id)
+    {
         $this->id = $id;
     }
 
@@ -35,7 +37,8 @@ class BootstrapNavBar {
      * @param $className string
      * @return $this
      */
-    public function setClassName($className) {
+    public function setClassName($className)
+    {
         $this->className = $className;
         return $this;
     }
@@ -45,7 +48,8 @@ class BootstrapNavBar {
      * @param bool $allowLoggedInOnly
      * @return $this
      */
-    public function addTools($class = '', $allowLoggedInOnly = false) {
+    public function addTools($class = '', $allowLoggedInOnly = false)
+    {
         global $INFO;
         global $lang;
         if ($allowLoggedInOnly && !$INFO['userinfo']['name']) {
@@ -80,7 +84,8 @@ class BootstrapNavBar {
      * @param string $imageSrc
      * @return $this
      */
-    public function addBrand($href = '', $text = null, $imageSrc = null) {
+    public function addBrand($href = '', $text = null, $imageSrc = null)
+    {
         $html = '<a class="navbar-brand" href="' . wl(cleanID($href)) . '">';
         if ($imageSrc) {
             $html .= '<img src="' . DOKU_TPL . $imageSrc .
@@ -97,19 +102,20 @@ class BootstrapNavBar {
     /**
      * @return $this
      */
-    public function mainMenu() {
+    public function mainMenu()
+    {
         $this->html .= '<nav class="navbar navbar-toggleable-md ' . $this->className . '">';
         if ($this->brand) {
             $this->html .= $this->brand;
         }
-        $this->html .= '        
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="' . '#mainNavbar' . $this->id . '" 
-    aria-controls="navbarSupportedContent" 
-    aria-expanded="false" 
+        $this->html .= '
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="' . '#mainNavbar' . $this->id . '"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
     aria-label="Toggle navigation">';
 
         $this->html .= '<span class="navbar-toggler-icon"></span>';
-        $this->html .= '</button>   
+        $this->html .= '</button>
          <div class="collapse navbar-collapse" id="mainNavbar' . $this->id . '">';
         foreach ($this->data as $item) {
             $this->renderNavBar($item['data'], $item['class']);
@@ -122,7 +128,8 @@ class BootstrapNavBar {
     /**
      * @return string
      */
-    public function render() {
+    public function render()
+    {
         $this->mainMenu();
         echo $this->html;
         return $this;
@@ -132,7 +139,8 @@ class BootstrapNavBar {
      * @param $filename string
      * @return NavBarItem[]
      */
-    private function parseMenuFile($filename) {
+    private function parseMenuFile($filename)
+    {
         $filePath = wikiFN($filename);
         $data = [];
         if (file_exists($filePath)) {
@@ -171,7 +179,8 @@ class BootstrapNavBar {
      * @param string $class
      * @return $this
      */
-    public function addMenuText($file = 'menu', $class = '') {
+    public function addMenuText($file = 'menu', $class = '')
+    {
         global $conf;
         $pageLang = $conf['lang'];
         $menuFileName = 'system/' . $file . '_' . $pageLang;
@@ -187,10 +196,13 @@ class BootstrapNavBar {
      * @param string $class
      * @return $this
      */
-    public function addLangSelect($class = '') {
+    public function addLangSelect($class = '')
+    {
         global $conf;
         $data = [];
-        if (count($conf['available_lang']) == 0) return $this;
+        if (!isset($conf['available_lang']) || count($conf['available_lang']) == 0) {
+            return $this;
+        }
         $data[] = new NavBarItem([
             'id' => null,
             'level' => 1,
@@ -201,11 +213,11 @@ class BootstrapNavBar {
             $data[] = new NavBarItem([
                 'id' => null,
                 'level' => 2,
-                'content' => '<a 
-                href="' . $currentLang['content']['url'] . '"  
+                'content' => '<a
+                href="' . $currentLang['content']['url'] . '"
                 class="dropdown-item ' . $currentLang['content']['class'] . ' ' .
                     ($currentLang['code'] == $conf['lang'] ? 'active' : '') . '"
-                ' . $currentLang['content']['more'] . ' 
+                ' . $currentLang['content']['more'] . '
                 >' . $currentLang['content']['text'] . ' </a> '
             ]);
         }
@@ -219,7 +231,8 @@ class BootstrapNavBar {
     /**
      * @return NavBarItem[]
      */
-    private function getUserTools() {
+    private function getUserTools()
+    {
         global $lang;
         $data = [];
         $data[] = new NavBarItem([
@@ -257,7 +270,8 @@ class BootstrapNavBar {
     /**
      * @return NavBarItem[]
      */
-    private function getSiteTools() {
+    private function getSiteTools()
+    {
         global $lang;
         $data = [];
         $data[] = new NavBarItem([
@@ -301,7 +315,8 @@ class BootstrapNavBar {
     /**
      * @return NavBarItem[]
      */
-    private function getPageTools() {
+    private function getPageTools()
+    {
         global $lang;
         $data = [];
         $data[] = new NavBarItem([
@@ -340,7 +355,8 @@ class BootstrapNavBar {
      * @param $data NavBarItem[]
      * @param string $class
      */
-    private function renderNavBar($data, $class = '') {
+    private function renderNavBar($data, $class = '')
+    {
         $inLI = false;
         $inUL = false;
 
