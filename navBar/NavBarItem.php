@@ -2,72 +2,69 @@
 
 namespace fksTemplate\NavBar;
 
-class NavBarItem {
+class NavBarItem
+{
+    private ?string $id;
+    private ?string $icon;
+    private int $level;
+    private string $content;
 
-    private $id;
-    private $icon;
-    private $level;
-    private $content;
-
-    public function __construct($parameters) {
+    public function __construct(array $parameters)
+    {
         $this->id = $parameters['id'];
         $this->icon = $parameters['icon'];
         $this->level = $parameters['level'];
         $this->content = $parameters['content'];
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId() {
+    public static function createExpanded(?string $id, ?string $icon, int $level, string $content): self
+    {
+        return new static(['id' => $id, 'icon' => $icon, 'level' => $level, 'content' => $content]);
+
+    }
+
+    public function getId(): string
+    {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
-    public function getIcon() {
-        if ($this->icon) {
+    public function getIcon(): string
+    {
+        if (isset($this->icon)) {
             return ' <span class="' . $this->icon . '" ></span > ';
         }
         return '';
     }
 
-    /**
-     * @return bool
-     */
-    private function isExternal() {
+    private function isExternal(): bool
+    {
         return preg_match('#https?://#', $this->id);
     }
 
-    /**
-     * @return integer
-     */
-    public function getLevel() {
+    public function getLevel(): int
+    {
         return $this->level;
     }
 
-    /**
-     * @return string
-     */
-    public function getContent() {
+    public function getContent(): string
+    {
         return $this->content;
     }
 
-    /**
-     * @return string
-     */
-    public function getLink() {
+    public function getLink(): string
+    {
+
+        if (substr($this->id, 0, 1) == '/') {
+            return $this->id;
+        }
         if ($this->isExternal()) {
             return htmlspecialchars($this->id);
         }
         return wl(cleanID($this->id));
     }
 
-    /**
-     * @return bool
-     */
-    public function hasId() {
+    public function hasId(): bool
+    {
         return !is_null($this->id);
     }
 }
