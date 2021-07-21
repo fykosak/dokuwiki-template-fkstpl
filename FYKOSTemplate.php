@@ -1,7 +1,8 @@
 <?php
 
-namespace fksTemplate;
+namespace FYKOS\dokuwiki\template\FYKOSTemplate;
 
+<<<<<<< HEAD:tpl_functions.php
 use fksTemplate\Jumbotron\Jumbotron;
 use fksTemplate\NavBar\BootstrapNavBar;
 
@@ -17,6 +18,22 @@ class fksTemplate
     public function printHeader(string $pageId): void
     {
         echo '<header>
+=======
+use FYKOS\dokuwiki\template\NavBar\BootstrapNavBar;
+use FYKOS\dokuwiki\template\Jumbotron\Jumbotron;
+
+class FYKOSTemplate {
+
+    private string $lang = 'cs';
+
+    public function setLang(string $lang): void {
+        $this->lang = $lang;
+    }
+
+    public function printHeader(string $pageId): string {
+
+        $html = '<header>
+>>>>>>> origin/dev-php-74:FYKOSTemplate.php
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-10 col-sm-10 col-xs-10">
@@ -24,8 +41,8 @@ class fksTemplate
                         <div class="row">
                             <div class="col-xs-4">
                             ';
-        echo self::getFYKOSLogo();
-        echo '</div>
+        $html .= self::getFYKOSLogo();
+        $html .= '</div>
                             <div class="col-xs-8 h1 fykos" style="align-self: center;">
                                 FYKOS<small style="font-size: 50%">.' . ($this->lang == 'en' ? 'org' : 'cz') . '</small>
                             </div>
@@ -34,16 +51,21 @@ class fksTemplate
                 </div>
                 <div class="col-lg-8 primary-menu-container hidden-md-down" style="align-self: flex-end;">
                    ';
-        self::getPrimaryNav()->render();
+        $html .= self::getPrimaryNav()->render();
 
+<<<<<<< HEAD:tpl_functions.php
         echo '</div>
+=======
+        $html .= '</div>
+>>>>>>> origin/dev-php-74:FYKOSTemplate.php
             </div>
         </div>';
-        echo '<div class="container-fluid">
+        $html .= '<div class="container-fluid">
             <div class="row hidden-lg-up">';
-        self::getFullNav()->render();
-        echo '</div>
+        $html .= self::getFullNav()->render();
+        $html .= '</div>
  </div><!-- Primary menu + FYKOS-->';
+<<<<<<< HEAD:tpl_functions.php
         $this->printHeaderImage($pageId);
         echo '</header>';
     }
@@ -79,6 +101,45 @@ class fksTemplate
 
     private static function getFYKOSLogo(): string
     {
+=======
+        $html .= $this->printHeaderImage($pageId);
+        $html .= '</header>';
+        return $html;
+    }
+
+    private static function printHeaderImage(string $pageId): string {
+        $secondMenu = self::getSecondaryNav();
+        $jumbotron = new Jumbotron($pageId);
+        return $jumbotron->render($secondMenu);
+    }
+
+    private static function getFullNav(): BootstrapNavBar {
+        $fullMenu = new BootstrapNavBar('full', 'col-xs-12 col-md-12 col-sm-12 navbar-inverse  bg-light-fykos');
+        $fullMenu->addMenuText('menu-primary');
+        $fullMenu->addMenuText('menu-second-left');
+        $fullMenu->addMenuText('menu-second-right');
+        $fullMenu->addTools('justify-content-end', true);
+        $fullMenu->addLangSelect('justify-content-end');
+        return $fullMenu;
+    }
+
+    private static function getPrimaryNav(): BootstrapNavBar {
+        $primaryMenu = new BootstrapNavBar('primary', 'navbar  bg-light');
+        $primaryMenu->addMenuText('menu-primary', 'mr-auto');
+        $primaryMenu->addTools(null, true);
+        $primaryMenu->addLangSelect();
+        return $primaryMenu;
+    }
+
+    private static function getSecondaryNav(): BootstrapNavBar {
+        $secondMenu = new BootstrapNavBar('secondary', 'navbar-inverse bg-light-fykos container');
+        $secondMenu->addMenuText('menu-second-left', 'mr-auto');
+        $secondMenu->addMenuText('menu-second-right');
+        return $secondMenu;
+    }
+
+    private static function getFYKOSLogo(): string {
+>>>>>>> origin/dev-php-74:FYKOSTemplate.php
         return '<svg version="1.1" baseProfile="tiny" width="100" height="80" viewBox="0 0 22578 11853" preserveAspectRatio="xMidYMid" fill-rule="evenodd" fill="none" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
 <g stroke-width="250">
     <path  d="M 1218,9014 C 1015,8459 1059,7842 1339,7321 1532,6963 1828,6671 2186,6475 2555,6272 2976,6179 3394,6233 3649,6266 3892,6354 4119,6475 4327,6585 4520,6721 4724,6837 4803,6882 4883,6924 4966,6959 5120,7023 5283,7064 5449,7080"/>

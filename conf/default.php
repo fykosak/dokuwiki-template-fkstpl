@@ -1,10 +1,5 @@
 <?php
 
-/*
- * default configuration settings
- *
- */
-
 $conf['email_webmaster'] = 'webmaster@fykos.cz';
 $conf['ga_trackcode'] = '';
 $conf['login_url'] = '/login';
@@ -14,8 +9,8 @@ $conf['submit_url'] = '/upload';
 $conf['vyfuk_url'] = 'http://vyfuk.mff.cuni.cz/';
 
 
-$conf['msg_cs'] = "";
-$conf['msg_en'] = "";
+$conf['msg_cs'] = '';
+$conf['msg_en'] = '';
 
-$conf['flast-links_cs']="";
-$conf['flast-links_en']="";
+$conf['flast-links_cs'] = '';
+$conf['flast-links_en'] = '';
