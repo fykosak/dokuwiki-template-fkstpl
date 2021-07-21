@@ -2,12 +2,12 @@
 
 namespace FYKOS\dokuwiki\template\FYKOSTemplate;
 
-<<<<<<< HEAD:tpl_functions.php
 use fksTemplate\Jumbotron\Jumbotron;
-use fksTemplate\NavBar\BootstrapNavBar;
+use FYKOS\dokuwiki\template\NavBar\BootstrapNavBar;
 
-class fksTemplate
+class FYKOSTemplate
 {
+
     private string $lang = 'cs';
 
     public function setLang(string $lang): void
@@ -15,25 +15,10 @@ class fksTemplate
         $this->lang = $lang;
     }
 
-    public function printHeader(string $pageId): void
+    public function printHeader(string $pageId): string
     {
-        echo '<header>
-=======
-use FYKOS\dokuwiki\template\NavBar\BootstrapNavBar;
-use FYKOS\dokuwiki\template\Jumbotron\Jumbotron;
-
-class FYKOSTemplate {
-
-    private string $lang = 'cs';
-
-    public function setLang(string $lang): void {
-        $this->lang = $lang;
-    }
-
-    public function printHeader(string $pageId): string {
 
         $html = '<header>
->>>>>>> origin/dev-php-74:FYKOSTemplate.php
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-10 col-sm-10 col-xs-10">
@@ -53,11 +38,8 @@ class FYKOSTemplate {
                    ';
         $html .= self::getPrimaryNav()->render();
 
-<<<<<<< HEAD:tpl_functions.php
-        echo '</div>
-=======
         $html .= '</div>
->>>>>>> origin/dev-php-74:FYKOSTemplate.php
+
             </div>
         </div>';
         $html .= '<div class="container-fluid">
@@ -65,55 +47,20 @@ class FYKOSTemplate {
         $html .= self::getFullNav()->render();
         $html .= '</div>
  </div><!-- Primary menu + FYKOS-->';
-<<<<<<< HEAD:tpl_functions.php
-        $this->printHeaderImage($pageId);
-        echo '</header>';
-    }
 
-    private static function printHeaderImage(string $pageId): void
-    {
-        $secondMenu = self::getSecondaryNav();
-        $jumbotron = new Jumbotron();
-        $jumbotron->render($secondMenu, $pageId);
-    }
-
-    private static function getFullNav(): BootstrapNavBar
-    {
-        $fullMenu = new BootstrapNavBar('full');
-        return $fullMenu->setClassName('col-xs-12 col-md-12 col-sm-12 navbar-inverse  bg-light-fykos')
-            ->addMenuText('menu-primary')->addMenuText('menu-second-left')->addMenuText('menu-second-right')
-            ->addTools('justify-content-end', true)->addLangSelect('justify-content-end');
-    }
-
-    private static function getPrimaryNav(): BootstrapNavBar
-    {
-        $primaryMenu = new BootstrapNavBar('primary');
-        return $primaryMenu->setClassName('navbar  bg-light')->addMenuText('menu-primary', 'mr-auto')
-            ->addTools(null, true)->addLangSelect();
-    }
-
-    private static function getSecondaryNav(): BootstrapNavBar
-    {
-        $secondMenu = new BootstrapNavBar('secondary');
-        return $secondMenu->setClassName('navbar-inverse bg-light-fykos container')
-            ->addMenuText('menu-second-left', 'mr-auto')->addMenuText('menu-second-right');
-    }
-
-    private static function getFYKOSLogo(): string
-    {
-=======
         $html .= $this->printHeaderImage($pageId);
         $html .= '</header>';
         return $html;
     }
 
-    private static function printHeaderImage(string $pageId): string {
+    private static function printHeaderImage(string $pageId): string
+    {
         $secondMenu = self::getSecondaryNav();
-        $jumbotron = new Jumbotron($pageId);
-        return $jumbotron->render($secondMenu);
+        return (new Jumbotron())->render($secondMenu, $pageId);
     }
 
-    private static function getFullNav(): BootstrapNavBar {
+    private static function getFullNav(): BootstrapNavBar
+    {
         $fullMenu = new BootstrapNavBar('full', 'col-xs-12 col-md-12 col-sm-12 navbar-inverse  bg-light-fykos');
         $fullMenu->addMenuText('menu-primary');
         $fullMenu->addMenuText('menu-second-left');
@@ -123,7 +70,8 @@ class FYKOSTemplate {
         return $fullMenu;
     }
 
-    private static function getPrimaryNav(): BootstrapNavBar {
+    private static function getPrimaryNav(): BootstrapNavBar
+    {
         $primaryMenu = new BootstrapNavBar('primary', 'navbar  bg-light');
         $primaryMenu->addMenuText('menu-primary', 'mr-auto');
         $primaryMenu->addTools(null, true);
@@ -131,15 +79,16 @@ class FYKOSTemplate {
         return $primaryMenu;
     }
 
-    private static function getSecondaryNav(): BootstrapNavBar {
+    private static function getSecondaryNav(): BootstrapNavBar
+    {
         $secondMenu = new BootstrapNavBar('secondary', 'navbar-inverse bg-light-fykos container');
         $secondMenu->addMenuText('menu-second-left', 'mr-auto');
         $secondMenu->addMenuText('menu-second-right');
         return $secondMenu;
     }
 
-    private static function getFYKOSLogo(): string {
->>>>>>> origin/dev-php-74:FYKOSTemplate.php
+    private static function getFYKOSLogo(): string
+    {
         return '<svg version="1.1" baseProfile="tiny" width="100" height="80" viewBox="0 0 22578 11853" preserveAspectRatio="xMidYMid" fill-rule="evenodd" fill="none" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
 <g stroke-width="250">
     <path  d="M 1218,9014 C 1015,8459 1059,7842 1339,7321 1532,6963 1828,6671 2186,6475 2555,6272 2976,6179 3394,6233 3649,6266 3892,6354 4119,6475 4327,6585 4520,6721 4724,6837 4803,6882 4883,6924 4966,6959 5120,7023 5283,7064 5449,7080"/>
