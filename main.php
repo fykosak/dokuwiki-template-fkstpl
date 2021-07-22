@@ -1,11 +1,11 @@
 <?php
 
-require_once(dirname(__FILE__) . '/tpl_functions.php'); /* include hook for template functions */
-require_once(dirname(__FILE__) . '/jumbotron/Jumbotron.php');
-require_once(dirname(__FILE__) . '/navBar/BootstrapNavBar.php');
-require_once(dirname(__FILE__) . '/navBar/NavBarItem.php');
+require_once(dirname(__FILE__) . '/FYKOSTemplate.php'); /* include hook for template functions */
+require_once(dirname(__FILE__) . '/jumbotron/src/Jumbotron.php');
+require_once(dirname(__FILE__) . '/navbar/BootstrapNavBar.php');
+require_once(dirname(__FILE__) . '/navbar/NavBarItem.php');
 global $conf, $ACT, $lang, $ID;
-$FksTemplate = new fksTemplate\fksTemplate();
+$FksTemplate = new FYKOS\dokuwiki\template\FYKOSTemplate\FYKOSTemplate();
 $FksTemplate->setLang($conf['lang']);
 
 ?><!DOCTYPE html>
@@ -16,6 +16,7 @@ $FksTemplate->setLang($conf['lang']);
       class="no-js">
 <head>
     <meta charset="UTF-8"/>
+    <meta name="google-site-verification" content="e-g_LupmwCL5101dZbWTqtRaRfvmqFRNjZVDEzIHj_Y" />
     <meta name="theme-color" content="#1175da"/>
     <meta name="keywords" content="fyzika, fyzikální, fyzikalni, FYKOS, seminář, seminar, soutěž, soutez"/>
     <meta name="category" content="physics"/>
@@ -33,11 +34,9 @@ $FksTemplate->setLang($conf['lang']);
     <?php tpl_metaheaders() ?>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <?php echo tpl_favicon(array('favicon')) ?>
-    <script
-        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
-        crossorigin="anonymous"></script>
-    <script>window.Tether = window.Tether || {};</script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
             integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
             crossorigin="anonymous"></script>
@@ -63,7 +62,7 @@ $FksTemplate->setLang($conf['lang']);
 <div id="dokuwiki__top" class="site <?php echo tpl_classes(); ?>"
 >
 
-    <?php $FksTemplate->printHeader($ID); ?>
+    <?php echo $FksTemplate->printHeader($ID); ?>
     <?php
     $sidebarPage = p_read_metadata($ID)['current']['sidebar'];
     $sidebarContent = null;
