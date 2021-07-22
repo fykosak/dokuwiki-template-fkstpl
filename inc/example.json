@@ -1,0 +1,30 @@
+[
+    {
+        "headline": "Věda zábavným způsobem",
+        "text": "Nudíš se ve škole? Pak jsi na ni možná až moc chytrý. \n Zapojte se do FYKOSu a získáš možnost poznat se s vědou zblízka zajímavějším způsobem.\n Naše úlohy jsou mnohem komplexnější než ty, které znáš z hodin fyziky. ",
+        "backgrounds": {
+            "outer": "https://fykos.cz/_media/kralupy_2020.jpg",
+            "inner": "fykos-blue"
+        },
+        "buttons": [
+            {
+                "page": ":akce:dsef",
+                "title": "some text"
+            }
+        ]
+    },
+    {
+        "headline": "Věda zábavným způsobem",
+        "text": "Nudíš se ve škole? Pak jsi na ni možná až moc chytrý. \n Zapojte se do FYKOSu a získáš možnost poznat se s vědou zblízka zajímavějším způsobem.\n Naše úlohy jsou mnohem komplexnější než ty, které znáš z hodin fyziky. ",
+        "backgrounds": {
+            "outer": "2",
+            "inner": "fykos-blue"
+        },
+        "buttons": [
+            {
+                "page": ":start",
+                "title": "some text"
+            }
+        ]
+    }
+]

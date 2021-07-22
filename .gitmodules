@@ -1,6 +1,0 @@
-[submodule "navbar"]
-	path = navbar
-	url = https://github.com/fykosak/dokuwiki-navbar.git
-[submodule "jumbotron"]
-	path = jumbotron
-	url = https://github.com/fykosak/dokuwiki-jumbotron.git
