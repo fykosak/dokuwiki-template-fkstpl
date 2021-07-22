@@ -30,5 +30,4 @@ class NavBarItem
         }
         return wl(cleanID($this->pageId));
     }
-
 }

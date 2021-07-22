@@ -6,7 +6,6 @@ require_once(dirname(__FILE__) . '/inc/BootstrapNavBar.php');
 require_once(dirname(__FILE__) . '/inc/NavBarItem.php');
 global $conf, $ACT, $lang, $ID;
 $FksTemplate = new FYKOS\dokuwiki\template\FYKOSTemplate\FYKOSTemplate();
-$FksTemplate->setLang($conf['lang']);
 
 ?><!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"

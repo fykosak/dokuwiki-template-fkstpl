@@ -8,55 +8,35 @@ use FYKOS\dokuwiki\template\NavBar\BootstrapNavBar;
 class FYKOSTemplate
 {
 
-    private string $lang = 'cs';
-
-    public function setLang(string $lang): void
-    {
-        $this->lang = $lang;
-    }
-
     public function printHeader(string $pageId): string
     {
+        global $conf;
 
-        $html = '<header>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-10 col-sm-10 col-xs-10">
-                    <a class="page-header" href="' . ($this->lang == 'en' ? wl('en') : wl()) . '">
-                        <div class="row">
-                            <div class="col-xs-4">
-                            ';
-        $html .= self::getFYKOSLogo();
-        $html .= '</div>
-                            <div class="col-xs-8 h1 fykos" style="align-self: center;">
-                                FYKOS<small style="font-size: 50%">.' . ($this->lang == 'en' ? 'org' : 'cz') . '</small>
-                            </div>
+        return '
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-10 col-sm-10 col-xs-10">
+                <a class="page-header" href="' . ($conf['lang'] == 'en' ? wl('en') : wl()) . '">
+                     <div class="row">
+                        <div class="col-xs-4">
+                            ' . self::getFYKOSLogo() . '
                         </div>
-                    </a>
-                </div>
-                <div class="col-lg-8 primary-menu-container hidden-md-down" style="align-self: flex-end;">
-                   ';
-        $html .= self::getPrimaryNav()->render();
-
-        $html .= '</div>
-
+                        <div class="col-xs-8 h1 fykos" style="align-self: center;">FYKOS<small style="font-size: 50%">.' . ($conf['lang'] == 'en' ? 'org' : 'cz') . '</small>
+                        </div>
+                     </div>
+                </a>
             </div>
-        </div>';
-        $html .= '<div class="container-fluid">
-            <div class="row hidden-lg-up">';
-        $html .= self::getFullNav()->render();
-        $html .= '</div>
- </div><!-- Primary menu + FYKOS-->';
-
-        $html .= $this->printHeaderImage($pageId);
-        $html .= '</header>';
-        return $html;
-    }
-
-    private static function printHeaderImage(string $pageId): string
-    {
-        $secondMenu = self::getSecondaryNav();
-        return (new Jumbotron())->render($secondMenu, $pageId);
+            <div class="col-lg-8 primary-menu-container hidden-md-down" style="align-self: flex-end;">
+                   ' . self::getPrimaryNav()->render() . '
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row hidden-lg-up">' . self::getFullNav()->render() . '</div>
+    </div>
+ ' . (new Jumbotron())->render(self::getSecondaryNav(), $pageId) . '
+ </header>';
     }
 
     private static function getFullNav(): BootstrapNavBar

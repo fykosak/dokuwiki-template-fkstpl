@@ -11,19 +11,12 @@ final class Jumbotron
     public static function render(BootstrapNavBar $secondMenu, string $pageId): string
     {
         $items = self::getItemsByPage($pageId);
-        $html = '<div class="container-fluid header-image jumbotron">';
-        $html .= '<div class="carousel-container">';
-        $html .= self::innerRender($items);
-        $html .= '</div>';
-        $html .= '<div class="row nav-container hidden-md-down second-nav">';
-        $html .= $secondMenu->render();
-        $html .= '</div>';
-        $html .= '</div>';
-        return $html;
-    }
-
-    public static function innerRender(array $items): string
-    {
+        if (!isset($items)) {
+            return '
+<div class="container-fluid header mb-3">
+    <div class="row nav-container hidden-md-down second-nav">' . $secondMenu->render() . '</div>
+</div>';
+        }
         $id = uniqid();
         $indicators = [];
         $parsedItems = [];
@@ -31,19 +24,17 @@ final class Jumbotron
             $indicators[] = '<li data-target="#' . $id . '" data-slide-to="' . $key . '"></li>';
             $parsedItems[] = self::getCarouselItem($item, !$key);
         }
-        $html = '<div id="' . $id . '" class="feed-carousel carousel slide mb-3" data-ride="carousel">';
 
-        $html .= '<ol class="carousel-indicators">';
-        $html .= join('', $indicators);
-        $html .= '</ol>';
-
-
-        $html .= '<div class="carousel-inner" role="listbox">';
-        $html .= join('', $parsedItems);
-        $html .= '</div>';
-
-        $html .= '</div>';
-        return $html;
+        return '
+<div class="container-fluid header-image jumbotron">
+    <div class="carousel-container">
+        <div id="' . $id . '" class="feed-carousel carousel slide mb-3" data-ride="carousel">
+            <ol class="carousel-indicators">' . join('', $indicators) . '</ol>
+            <div class="carousel-inner" role="listbox">' . join('', $parsedItems) . '</div>
+        </div>
+    </div>
+    <div class="row nav-container hidden-md-down second-nav">' . $secondMenu->render() . '</div>
+</div>';
     }
 
     private static function getCarouselItem(JumbotronItem $item, bool $active): string
@@ -52,20 +43,20 @@ final class Jumbotron
         if (is_string($item->backgrounds['outer'])) {
             $style = 'background-image: url(' . ml($item->backgrounds['outer'], ['w' => 1200]) . ')';
         }
-
-        $html = '<div class="carousel-item ' .
+        return '
+<div class="carousel-item ' .
             ($style ? '' : 'bg-' . $item->backgrounds['inner'] . '-fade ') .
             ($active ? ' active' : '') .
             '" style="' . ($style ?? '') . '">
-            <div class="mx-auto col-lg-8 col-xl-5">
-      <div class=" jumbotron-inner-container d-block ' . ($style ? 'bg-' . $item->backgrounds['inner'] . '-fade ' : '') . '">';
+    <div class="mx-auto col-lg-8 col-xl-5">
+        <div class=" jumbotron-inner-container d-block ' . ($style ? 'bg-' . $item->backgrounds['inner'] . '-fade ' : '') . '">
+            <h1>' . hsc($item->headline) . '</h1>
+            <p>' . p_render('xhtml', p_get_instructions($item->text), $info) . '</p>' .
+            self::getButtons($item) . '
+        </div>
+    </div>
+</div>';
 
-        $html .= '<h1>' . hsc($item->headline) . '</h1>';
-        $html .= '<p>' . p_render('xhtml', p_get_instructions($item->text), $info) . '</p>';
-        $html .= self::getButtons($item);
-
-        $html .= '</div></div></div>';
-        return $html;
     }
 
     private static function getButtons(JumbotronItem $item): string
@@ -73,36 +64,29 @@ final class Jumbotron
         $html = '';
         foreach ($item->buttons as $button) {
             $id = $button['page'];
-
-            if (preg_match('|^https?://|', $id)) {
-                $href = hsc($id);
-            } else {
-                $href = wl($id, null, true);
-            }
-            $html .= '<p><a class="btn btn-outline-secondary" href="' . $href . '">' . $button['title'] . '</a></p>';
-
+            $html .= '<p><a class="btn btn-outline-secondary" href="' . (preg_match('|^https?://|', $id) ? hsc($id) : wl($id, null, true)) . '">' . $button['title'] . '</a></p>';
         }
         return $html;
     }
 
-    private static function getDataFromJSON(string $dataPage): array
+    private static function getDataFromJSON(string $dataPage): ?array
     {
-        $content = io_readFile(wikiFN($dataPage));
-        $data = json_decode($content, true);
+        $data = json_decode(io_readFile(wikiFN($dataPage)), true);
+        if (!$data) {
+            return null;
+        }
         $items = [];
-        if ($data) {
-            foreach ($data as $datum) {
-                $items[] = new  JumbotronItem($datum);
-            }
+        foreach ($data as $datum) {
+            $items[] = new  JumbotronItem($datum);
         }
         return $items;
     }
 
     /**
      * @param string $page
-     * @return JumbotronItem[]
+     * @return JumbotronItem[]|null
      */
-    public static function getItemsByPage(string $page): array
+    public static function getItemsByPage(string $page): ?array
     {
         switch ($page) {
             case 'start':
@@ -110,7 +94,7 @@ final class Jumbotron
             case 'en':
                 return self::getDataFromJSON('jumbotron-data-en');
             default:
-                return [];
+                return null;
         }
     }
 }

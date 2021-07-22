@@ -48,40 +48,27 @@ class BootstrapNavBar
 
     public function addBrand(string $href = '', ?string $text = null, ?string $imageSrc = null): void
     {
-        $html = '<a class="navbar-brand" href="' . wl(cleanID($href)) . '">';
-        if ($imageSrc) {
-            $html .= '<img src="' . tpl_basedir() . $imageSrc .
-                '" width="30" height="30" class="d-inline-block align-top" alt="">';
-        }
-        if ($text) {
-            $html .= $text;
-        }
-        $html .= '</a>';
-        $this->brand = $html;
+        $this->brand = '<a class="navbar-brand" href="' . wl(cleanID($href)) . '">' .
+            ($imageSrc ? '<img src="' . tpl_basedir() . $imageSrc .
+                '" width="30" height="30" class="d-inline-block align-top" alt="">' : '')
+            . $text ?? '' . '</a>';
     }
 
 
     public function render(): string
     {
-        $html = '<nav class="navbar navbar-toggleable-md ' . $this->className . '">';
-        if ($this->brand) {
-            $html .= $this->brand;
-        }
-        $html .= '
+        return '
+<nav class="navbar navbar-toggleable-md ' . $this->className . '">' . ($this->brand ?? '') . '
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="' . '#mainNavbar' . $this->id . '"
     aria-controls="navbarSupportedContent"
     aria-expanded="false"
-    aria-label="Toggle navigation">';
-
-        $html .= '<span class="navbar-toggler-icon"></span>';
-        $html .= '</button>
-         <div class="collapse navbar-collapse" id="mainNavbar' . $this->id . '">';
-        foreach ($this->data as $item) {
-            $html .= $this->renderItem($item['data'], $item['class']);
-        }
-        $html .= '</div>';
-        $html .= '</nav>';
-        return $html;
+    aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNavbar' . $this->id . '">' .
+            join('', array_map(fn($item) => $this->renderItem($item['data'], $item['class']), $this->data)) . '
+    </div>
+</nav>';
     }
 
     /**
@@ -148,7 +135,7 @@ class BootstrapNavBar
                 >' . $currentLang['content']['text'] . ' </a> ', 2, null);
         }
         $this->data[] = [
-            'class' => 'nav ' . $class ?? '',
+            'class' => 'nav ' . ($class ?? ''),
             'data' => $data,
         ];
     }
