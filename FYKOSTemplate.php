@@ -69,7 +69,7 @@ class FYKOSTemplate
         $fullMenu->addLangSelect('justify-content-end');
         return $fullMenu;
     }
-
+    
     private static function getPrimaryNav(): BootstrapNavBar
     {
         $primaryMenu = new BootstrapNavBar('primary', 'navbar  bg-light');
