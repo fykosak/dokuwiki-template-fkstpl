@@ -1,9 +1,9 @@
 <?php
 
 require_once(dirname(__FILE__) . '/FYKOSTemplate.php'); /* include hook for template functions */
-require_once(dirname(__FILE__) . '/jumbotron/src/Jumbotron.php');
-require_once(dirname(__FILE__) . '/navbar/BootstrapNavBar.php');
-require_once(dirname(__FILE__) . '/navbar/NavBarItem.php');
+require_once(dirname(__FILE__) . '/inc/Jumbotron.php');
+require_once(dirname(__FILE__) . '/inc/BootstrapNavBar.php');
+require_once(dirname(__FILE__) . '/inc/NavBarItem.php');
 global $conf, $ACT, $lang, $ID;
 $FksTemplate = new FYKOS\dokuwiki\template\FYKOSTemplate\FYKOSTemplate();
 $FksTemplate->setLang($conf['lang']);

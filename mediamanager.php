@@ -7,7 +7,10 @@
  */
 // must be run from within DokuWiki
 if (!defined('DOKU_INC')) die();
-@require_once(dirname(__FILE__).'/tpl_functions.php'); /* include hook for template functions */
+require_once(dirname(__FILE__) . '/FYKOSTemplate.php'); /* include hook for template functions */
+require_once(dirname(__FILE__) . '/inc/Jumbotron.php');
+require_once(dirname(__FILE__) . '/inc/BootstrapNavBar.php');
+require_once(dirname(__FILE__) . '/inc/NavBarItem.php'); /* include hook for template functions */
 header('X-UA-Compatible: IE=edge,chrome=1');
 
 ?><!DOCTYPE html>
