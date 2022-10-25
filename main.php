@@ -25,7 +25,7 @@ $FksTemplate = new FYKOS\dokuwiki\template\FYKOSTemplate\FYKOSTemplate();
     <meta name="DC.title" content="FYKOS"/>
     <meta name="author" content="Michal Červeňák"/>
     <title>
-        <?php tpl_pagetitle() ?> :: <?php echo strip_tags($conf['title']) ?>
+        <?php tpl_pagetitle() ?> - <?php echo strip_tags($conf['title']) ?>
     </title>
     <script>(function (H) {
             H.className = H.className.replace(/\bno-js\b/, 'js');
