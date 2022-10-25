@@ -19,9 +19,6 @@ class FYKOSTemplate
             <div style="padding-top: 1rem;padding-left: 0rem;" class="col-lg-4 col-md-10 col-sm-10 col-xs-10">
                 <a class="page-header" href="' . ($conf['lang'] == 'en' ? wl('en') : wl()) . '">
                      <div class="row">
-                        <!-- <div class="col-xs-4">
-                            ' . self::getFYKOSLogo() . '
-                        </div> -->
                         <div class="col-lg-7 h1 fykos" style="align-self: center;">
                              ' . self::getFYKOSLogo() . '
 </div>
